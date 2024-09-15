@@ -1,0 +1,4 @@
+{
+    // The name used for pulling from ModFest's platform api
+    "event": "carnival"
+}

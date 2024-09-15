@@ -1,0 +1,2 @@
+# Generic packwiz setup
+

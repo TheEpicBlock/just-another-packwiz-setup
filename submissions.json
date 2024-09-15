@@ -1,0 +1,982 @@
+[
+  {
+    "id": "balloons_away_",
+    "name": "Balloons Away!",
+    "description": "Adds cosmetic balloons to the game such as camel balloons and much more!",
+    "authors": [
+      "wolfbeag"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Yaz9NVDK",
+      "version_id": "VszygMcU"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Yaz9NVDK/cf284450cf0d01835ba62696ebbf0a6a576088a6.png",
+      "screenshot": "https://cdn.modrinth.com/data/Yaz9NVDK/images/24036a995089a05c66d8438e917739da169ef0df.png"
+    },
+    "download": "https://cdn.modrinth.com/data/Yaz9NVDK/versions/VszygMcU/balloons-away-1.0.0.jar",
+    "source": "https://github.com/w0lfbeag/balloons-away"
+  },
+  {
+    "id": "beeg_smol",
+    "name": "Beeg Smol",
+    "description": "Adds Potions that make you bigger or smaller!",
+    "authors": [
+      "andi_makes"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "TtKxsI01",
+      "version_id": "qwfbuVZ6"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/TtKxsI01/2eebed884a2d42ceefa43bbee0c965ae6ee91909.png",
+      "screenshot": "https://cdn.modrinth.com/data/TtKxsI01/images/fdebbd9f602f0cbcea5dc5a795f04e155d99815a.png"
+    },
+    "download": "https://cdn.modrinth.com/data/TtKxsI01/versions/qwfbuVZ6/beeg-smol-1.0.0.jar",
+    "source": "https://github.com/SchmarrnDevs/beeg-smol"
+  },
+  {
+    "id": "dancerizer",
+    "name": "Dancerizer",
+    "description": "Perform taunts and whole dances with new accessories!",
+    "authors": [
+      "sammy"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "hZ4lZ6jX",
+      "version_id": "eSDlmbTG"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/hZ4lZ6jX/cbec936a3b58350f16570dfc1cc60b2a847d2ba8.png",
+      "screenshot": "https://cdn.modrinth.com/data/hZ4lZ6jX/images/71f976f1c09a4ee84ad0eac73ab118ddf502f78f.png"
+    },
+    "download": "https://cdn.modrinth.com/data/hZ4lZ6jX/versions/eSDlmbTG/dancerizer-1.2.1.jar",
+    "source": "https://github.com/kleinbox/Dancerizer"
+  },
+  {
+    "id": "pocketmobs",
+    "name": "Pocket Mobs",
+    "description": "Battle with mobs using Pokémon Showdown. Made for ModFest Carnival.",
+    "authors": [
+      "leo60228"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "o3k15579",
+      "version_id": "LreTBqlL"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/o3k15579/ccb2271f6d3ae359aed9121f266e727d73c39702.png"
+    },
+    "download": "https://cdn.modrinth.com/data/o3k15579/versions/LreTBqlL/pocketmobs-1.2.1.jar",
+    "source": "https://gitlab.com/vriska/pocketmobs"
+  },
+  {
+    "id": "hookaduck",
+    "name": "Hook a Duck",
+    "description": "Hook ducks, get tickets, win prizes!",
+    "authors": [
+      "khazoda",
+      "dabloon"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "iqFGVcca",
+      "version_id": "Mc3v9HzN"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/iqFGVcca/58cacd5b1fd4eda50117efc9c8dfd788b6cb1928.png",
+      "screenshot": "https://cdn.modrinth.com/data/iqFGVcca/images/2e4adceb8554da1f271cbc1b34e1a805f23f37aa.png"
+    },
+    "download": "https://cdn.modrinth.com/data/iqFGVcca/versions/Mc3v9HzN/duck-1.0.0.jar",
+    "source": "https://github.com/Khazoda/Hook-a-Duck"
+  },
+  {
+    "id": "powerchord",
+    "name": "PowerChord",
+    "description": "A component-driven RPG instrument system - you know, hunting-horn-likes!",
+    "authors": [
+      "gardensystem",
+      "sisby_folk"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "rKGdYyZQ",
+      "version_id": "QDhRvy3i"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/rKGdYyZQ/d19efc492568cb5a744d6280dedc005ad219ea39.png",
+      "screenshot": "https://cdn.modrinth.com/data/rKGdYyZQ/images/dbe30698f9d769d6cd55bc56a669a9c8caf4c94b.png"
+    },
+    "download": "https://cdn.modrinth.com/data/rKGdYyZQ/versions/QDhRvy3i/powerchord-0.2.0%2B1.21.jar",
+    "source": "https://github.com/HestiMae/powerchord"
+  },
+  {
+    "id": "sinister_circus",
+    "name": "Sinister Circus",
+    "description": "A small mod that adds items, equipment and food themed around carnivals! (with an evil twist \u003e:D)\n\nMade for Modfest - Carnival",
+    "authors": [
+      "zarkanaseen",
+      "supertoady"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "GpqhNGdk",
+      "version_id": "riGghhsj"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/GpqhNGdk/13d049252917487fcb3f6e9a5794eb7cc28ca02c.png",
+      "screenshot": "https://cdn.modrinth.com/data/GpqhNGdk/images/387f2e0272f899bec1e7131a055b1b5630d248b0.png"
+    },
+    "download": "https://cdn.modrinth.com/data/GpqhNGdk/versions/riGghhsj/sinister-circus-0.2b.jar",
+    "source": "https://github.com/supertoady/sinister-circus-1.21"
+  },
+  {
+    "id": "magnificent_maw",
+    "name": "the Magnificent Fire-Breathing Sword-Swallowing Maw!",
+    "description": "You, too, can breathe fire and swallow swords with this mod! Made for ModFest: Carnival.",
+    "authors": [
+      "afamiliarquiet"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "dInQkabf",
+      "version_id": "JGOF2ub3"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/dInQkabf/87b72028133dda8278e4ea5d3e36720e7e2256c5.png",
+      "screenshot": "https://cdn.modrinth.com/data/dInQkabf/images/84cf6969e27d916300235e369afd6c9379c9a768.webp"
+    },
+    "download": "https://cdn.modrinth.com/data/dInQkabf/versions/JGOF2ub3/magnificent-maw-1.1.0.jar",
+    "source": "https://github.com/afamiliarquiet/magnificent-maw"
+  },
+  {
+    "id": "thwackinator",
+    "name": "Thwackinator",
+    "description": "New whacky weaponry!",
+    "authors": [
+      "lgmrszd"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "dMltSin1",
+      "version_id": "4G5U81S4"
+    },
+    "download": "https://cdn.modrinth.com/data/dMltSin1/versions/4G5U81S4/thwackinator-0.1.0.jar",
+    "source": "https://git.lgmrszd.xyz/Lgmrszd/Thwackinator"
+  },
+  {
+    "id": "aji_maji",
+    "name": "Aji-Maji",
+    "description": "A mod inspired by classical performance magic. Think top hats, card decks, magic wands, and flying carpets!",
+    "authors": [
+      "acikek",
+      "snakefangox",
+      "trudle",
+      "kneelawk"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Y7rjymZI",
+      "version_id": "BA31WBLc"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Y7rjymZI/9f6dbe11a1fc0aeaec1f8c2a012d9dc092423604.png"
+    },
+    "download": "https://cdn.modrinth.com/data/Y7rjymZI/versions/BA31WBLc/aji-maji-1.8.jar",
+    "source": "https://github.com/snakefangox/aji-maji"
+  },
+  {
+    "id": "spectral_spirits",
+    "name": "Spectral Spirits",
+    "description": "Meet your very own guardian spirit!",
+    "authors": [
+      "skycatminepokie"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "6cZO3xrm",
+      "version_id": "hkrv4Y6U"
+    },
+    "download": "https://cdn.modrinth.com/data/6cZO3xrm/versions/hkrv4Y6U/spectral-spirits-0.0.1%2B1.21.jar",
+    "source": "https://github.com/skycatminepokie/spectral-spirits"
+  },
+  {
+    "id": "pulchra_occultorum",
+    "name": "Pulchra Occultorum",
+    "description": "This mod is all about Victorian Science, Carnival and Occultism.",
+    "authors": [
+      "milkyfur",
+      "apfelrunder",
+      "shirojr"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "4vHHqRFc",
+      "version_id": "U7pjIpn9"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/4vHHqRFc/d3d14ccaf047ab9c55b1bd8b5e868442f70bdf91.png",
+      "screenshot": "https://cdn.modrinth.com/data/4vHHqRFc/images/7fae2920a8eccbb0cae9a0ebf750e6d9b91b4e63.jpeg"
+    },
+    "download": "https://cdn.modrinth.com/data/4vHHqRFc/versions/U7pjIpn9/pulchra-occultorum-0.0.8.jar",
+    "source": "https://github.com/JR1811/PulchraOccultorum"
+  },
+  {
+    "id": "twirl",
+    "name": "Twirl!",
+    "description": "Adds the \"Twirling\" enchantment, replacing any item\u0027s use action with being pointlessly spun around.",
+    "authors": [
+      "sisby_folk"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "l6f8KaeX",
+      "version_id": "dMMIjL83"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/l6f8KaeX/51eecb21e269afdd3948a8443950130ed4f94862.png",
+      "screenshot": "https://cdn.modrinth.com/data/l6f8KaeX/images/3ab13fc49c9efeeca249fa07337c7a5e1abe1acc.gif"
+    },
+    "download": "https://cdn.modrinth.com/data/l6f8KaeX/versions/dMMIjL83/twirl-0.2.0%2B1.21.jar",
+    "source": "https://github.com/sisby-folk/twirl"
+  },
+  {
+    "id": "terrific_tickets",
+    "name": "Terrific Tickets",
+    "description": "Tokens and tickets for ModFest: Carnival!",
+    "authors": [
+      "lemmaeof"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "1ayQdcpc",
+      "version_id": "rD3Sdn3e"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/1ayQdcpc/6ea515253de9b8a2296abbd4a0d463cc773ce61f.png",
+      "screenshot": "https://cdn.modrinth.com/data/1ayQdcpc/images/e8c2ebb8cdbe984a28548c85d60a1da3580384b6.png"
+    },
+    "download": "https://cdn.modrinth.com/data/1ayQdcpc/versions/rD3Sdn3e/terrifictickets-0.1.0%2B1.21-pre3.jar",
+    "source": "https://github.com/lemmaeof/terrifictickets"
+  },
+  {
+    "id": "clown_raid",
+    "name": "Clown Raid",
+    "description": "Adds circus parades! Made for Modfest 2024",
+    "authors": [
+      "a11v1r15"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "pqtnvjVS",
+      "version_id": "hDZsZaTa"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/pqtnvjVS/edf1a1443b552fad35a867daf61d2b1345bc183a.png",
+      "screenshot": "https://cdn.modrinth.com/data/pqtnvjVS/images/91cf76ec12b514c5075824c54aacd560bcd44231.png"
+    },
+    "download": "https://cdn.modrinth.com/data/pqtnvjVS/versions/hDZsZaTa/clown-raid-1.2.7.jar",
+    "source": "https://github.com/A11v1r15/Clown-raid"
+  },
+  {
+    "id": "bombastic",
+    "name": "Bombastic",
+    "description": "Sending you pipe bombs since 2024",
+    "authors": [
+      "callmeecho",
+      "worldwidepixel"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "4PhSSMsR",
+      "version_id": "aOAhns7B"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/4PhSSMsR/ec2f60f2a686e7c83ef5d366f817c8f53c92f087.png",
+      "screenshot": "https://cdn.modrinth.com/data/4PhSSMsR/images/b4371eff354630efada9ac3fb2575faf9d608f35.png"
+    },
+    "download": "https://cdn.modrinth.com/data/4PhSSMsR/versions/aOAhns7B/Bombastic.jar",
+    "source": "https://github.com/SpiritGameStudios/Bombastic"
+  },
+  {
+    "id": "amarong",
+    "name": "Amarong",
+    "description": "Adds a new material called Amarong, handheld \"rubber\" ducks, kaleidoscopes, and rainbow beacons with no redstone required",
+    "authors": [
+      "skynotthelimit"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Pkud4ZgC",
+      "version_id": "59qxfDNk"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Pkud4ZgC/5c0d532db5c9a75a97bf281c268649edd9f45b8a.png",
+      "screenshot": "https://cdn.modrinth.com/data/Pkud4ZgC/images/f6f9634549d22cc86beda630fe109ef6fb22f8b4.png"
+    },
+    "download": "https://cdn.modrinth.com/data/Pkud4ZgC/versions/59qxfDNk/amarong-1.0.23%2B1.21.jar",
+    "source": "https://github.com/ekulxam/amarong"
+  },
+  {
+    "id": "up_and_away",
+    "name": "Up and Away",
+    "description": "A mod about balloons, made for Modfest: Carnival",
+    "authors": [
+      "tropheusj",
+      "cart3r1234",
+      "maximum"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "5MkSo9Hb",
+      "version_id": "Tf5FqGoQ"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/5MkSo9Hb/16a77a5706100d19f551770d62b530c3e1e3cc2d.png"
+    },
+    "download": "https://cdn.modrinth.com/data/5MkSo9Hb/versions/Tf5FqGoQ/up_and_away-1.0.0-beta.7%2Bbuild.115.jar",
+    "source": "https://github.com/devOS-Sanity-Edition/up-and-away"
+  },
+  {
+    "id": "illusions",
+    "name": "Illusions",
+    "description": "A funhouse mirror mod for Modfest: Carnival.",
+    "authors": [
+      "bluevista"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "yehkVljG",
+      "version_id": "f2KqDSsr"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/yehkVljG/c830761f06162251d45aaeab1245566438101d51.png",
+      "screenshot": "https://cdn.modrinth.com/data/yehkVljG/images/6333e2a352802fca135f7e9fa7d7c59e3d02dffa.png"
+    },
+    "download": "https://cdn.modrinth.com/data/yehkVljG/versions/f2KqDSsr/illusions-1.0.0%2B1.21.jar",
+    "source": "https://github.com/ethanejohnsons/illusions"
+  },
+  {
+    "id": "snuggle_vault",
+    "name": "Snuggle Vault",
+    "description": "Adds a snuggle vault to store plushies in and machines with games to get plushies out",
+    "authors": [
+      "krazyminer001",
+      "suyashtnt"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "oTkxYY1g",
+      "version_id": "7pincmAl"
+    },
+    "download": "https://cdn.modrinth.com/data/oTkxYY1g/versions/7pincmAl/snugglevault-1.0.0.jar",
+    "source": "https://github.com/KrazyMiner001/Snuggle-Vault"
+  },
+  {
+    "id": "bonzi_buddy",
+    "name": "Bonzi Buddy",
+    "description": "Your best friend on the Internet is now in Minecraft! Made for ModFest Carnival!",
+    "authors": [
+      "superkat32"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "PqolNfCr",
+      "version_id": "nKHEWxyr"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/PqolNfCr/184f5d8205354902d50568c9770e9b03a4216df8.png",
+      "screenshot": "https://cdn.modrinth.com/data/PqolNfCr/images/b126e6f57a2ec3bea1b25dbc349b3912b12cf59b.png"
+    },
+    "download": "https://cdn.modrinth.com/data/PqolNfCr/versions/nKHEWxyr/bonzibuddy-1.0.4.jar",
+    "source": "https://github.com/Superkat32/bonzibuddy"
+  },
+  {
+    "id": "ballooning",
+    "name": "Ballooning",
+    "description": "Anything you can lead can become a balloon with a Magical Lead found in Vaults!",
+    "authors": [
+      "bug1312"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "J1BCbrXI",
+      "version_id": "LiiHV3Ny"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/J1BCbrXI/1a148a97c0ba44e714afeaada47491ce989460fd.png",
+      "screenshot": "https://cdn.modrinth.com/data/J1BCbrXI/images/5300a15920113b66446cbab907976ca1c320d458.png"
+    },
+    "download": "https://cdn.modrinth.com/data/J1BCbrXI/versions/LiiHV3Ny/ballooning-1.0.0.jar",
+    "source": "https://github.com/Bug1312/ballooning"
+  },
+  {
+    "id": "crystal_fortunes",
+    "name": "Crystal Fortunes",
+    "description": "A mod about predictions and fate.",
+    "authors": [
+      "ilcheese2"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "JCehA5Yy",
+      "version_id": "laOKm9K5"
+    },
+    "download": "https://cdn.modrinth.com/data/JCehA5Yy/versions/laOKm9K5/Crystal_Fortunes-1.2.4.jar",
+    "source": "https://github.com/ilcheese2/CrystalFortunes"
+  },
+  {
+    "id": "crypt_mimic",
+    "name": "Crypt: Mimic",
+    "description": "Data-driven fake-player NPCs",
+    "authors": [
+      "justpyrrha"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "HpZy7yoR",
+      "version_id": "6A8BIjxW"
+    },
+    "download": "https://cdn.modrinth.com/data/HpZy7yoR/versions/6A8BIjxW/Mimic-0.1.0-alpha.2.jar",
+    "source": "https://github.com/JustPyrrha/crypt-mimic"
+  },
+  {
+    "id": "wheel_of_wacky",
+    "name": "Wheel of Wacky",
+    "description": "A mod that adds a carnival prize wheel that has the chance to either fabulously reward or horrifically punish players!",
+    "authors": [
+      "hyperpigeon",
+      "lumiscosity"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "JwRk761J",
+      "version_id": "VGHXcqfq"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/JwRk761J/a35ab6c954c19315e8714c4ee8959f4076657ac2.png",
+      "screenshot": "https://cdn.modrinth.com/data/JwRk761J/images/ecbe281c7f15a0ab2ca8f99cefbb367cf68afe98.png"
+    },
+    "download": "https://cdn.modrinth.com/data/JwRk761J/versions/VGHXcqfq/wacky_wheel-0.1.9.jar",
+    "source": "https://github.com/HyperPigeon/WheelOfWacky"
+  },
+  {
+    "id": "unhinged_carnival_supplies",
+    "name": "Unhinged Carnival Supplies",
+    "description": "Basically Party Supplies that might be just a little off",
+    "authors": [
+      "aikoyori"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "uBNthW5Q",
+      "version_id": "iTYCJ7r8"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/uBNthW5Q/b39b01f1065f151abae0ec5dd770b417a4f79951.png",
+      "screenshot": "https://cdn.modrinth.com/data/uBNthW5Q/images/38b0ba720fc09b73e08cc7f424db844a83b2f33a.png"
+    },
+    "download": "https://cdn.modrinth.com/data/uBNthW5Q/versions/iTYCJ7r8/UnhingedCarnivalSupplies-1.0.0.jar",
+    "source": "https://github.com/Aikoyori/UnhingedCarnivalSuppliesFabric/"
+  },
+  {
+    "id": "vainglory",
+    "name": "Vainglory",
+    "description": "Adds a lance. Made for ModFest: Carnival",
+    "authors": [
+      "xtimetopanic",
+      "oliviathevampire"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "2qyeWQOn",
+      "version_id": "kKIrQtMA"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/2qyeWQOn/6f1d8a0bda24209000cb8dda284900f0f9421b68.png",
+      "screenshot": "https://cdn.modrinth.com/data/2qyeWQOn/images/17e88447ab4d2f44a9abc0857da3023b2c9daf64.png"
+    },
+    "download": "https://cdn.modrinth.com/data/2qyeWQOn/versions/kKIrQtMA/vainglory-0.1.0%2Bbuild.3-1.21.jar",
+    "source": "https://github.com/oliviathevampire/Vainglory"
+  },
+  {
+    "id": "dusty",
+    "name": "Dust",
+    "description": "A server side mod that adds dust and several ways to deal with said dust.",
+    "authors": [
+      "mrturtle"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Dzn1XCbd",
+      "version_id": "Bf6lDVjQ"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Dzn1XCbd/0dd2a51c25c64997eea3895f2c3d62bbccb46444.png",
+      "screenshot": "https://cdn.modrinth.com/data/Dzn1XCbd/images/c6c2c3dfecca4355709c5acf2a4f3b99937553f2.png"
+    },
+    "download": "https://cdn.modrinth.com/data/Dzn1XCbd/versions/Bf6lDVjQ/dust-1.0.6%2B1.21.jar",
+    "source": "https://github.com/Gibatron/dust"
+  },
+  {
+    "id": "splinecart",
+    "name": "Splinecart",
+    "description": "Minecart roller coasters",
+    "authors": [
+      "foundationgames"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "mAHz905I",
+      "version_id": "CEv07qpw"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/mAHz905I/2b92db54d26964bcdb9d185ed8a40b1d8691e1ad.png",
+      "screenshot": "https://cdn.modrinth.com/data/mAHz905I/images/4d3ef2ede703362f7712c8c148161d826f18d98f.png"
+    },
+    "download": "https://cdn.modrinth.com/data/mAHz905I/versions/CEv07qpw/splinecart-0.0.1-modfest.1%2B1.21.jar",
+    "source": "https://github.com/FoundationGames/Splinecart"
+  },
+  {
+    "id": "ducktor",
+    "name": "Ducktor",
+    "description": "Quack medicine for ModFest: Carnival.",
+    "authors": [
+      "lemmaeof"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "O13dfMdQ",
+      "version_id": "D1yUaVVb"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/O13dfMdQ/b1c47439d021a22aa7ae9f6c9e5814963ea897f5.png",
+      "screenshot": "https://cdn.modrinth.com/data/O13dfMdQ/images/114b67c6f716aeee28789d86c99dfda7616c11cf.png"
+    },
+    "download": "https://cdn.modrinth.com/data/O13dfMdQ/versions/D1yUaVVb/ducktor-1.0.0%2B1.21.jar",
+    "source": "https://github.com/lemmaeof/ducktor"
+  },
+  {
+    "id": "breeze_bounce",
+    "name": "Breeze Bounce",
+    "description": "Bounce to new heights with Wind-Charged blocks! Inflate them for extra spring, or use them to create crazy trampoline courses.",
+    "authors": [
+      "chefmooon"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "vBoXEK2I",
+      "version_id": "pZeJGAzQ"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/vBoXEK2I/0a26375dff1ba6523936b7aa1579ade091dd60ec.png",
+      "screenshot": "https://cdn.modrinth.com/data/vBoXEK2I/images/021a67794548cb3c4c62992bf289abb30d47d26d.png"
+    },
+    "download": "https://cdn.modrinth.com/data/vBoXEK2I/versions/pZeJGAzQ/breezebounce-1.0.0.jar",
+    "source": "https://github.com/ChefMooon/breeze-bounce"
+  },
+  {
+    "id": "mib",
+    "name": "Musical Instrument Library (Mib)",
+    "description": "A library adding common to use musical instruments.",
+    "authors": [
+      "pug"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "bKSuWCZz",
+      "version_id": "DcvYqvm6"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/bKSuWCZz/c970835e981782495c4ca1fb1b9225bc490f939e.png"
+    },
+    "download": "https://cdn.modrinth.com/data/bKSuWCZz/versions/DcvYqvm6/mib-fabric-0.2.0%2B1.21.jar",
+    "source": "https://github.com/GreenhouseTeam/mib/"
+  },
+  {
+    "id": "circus_deco",
+    "name": "Circus Deco",
+    "description": "Adds new decorative circus themed blocks!",
+    "authors": [
+      "xtimetopanic",
+      "oliviathevampire"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "A1tEWpES",
+      "version_id": "XbLnAGyQ"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/A1tEWpES/e70efbbb4c6ae16baf1612ddd313530a28666450.png",
+      "screenshot": "https://cdn.modrinth.com/data/A1tEWpES/images/1eb03cccebe5605ee32450a6b6ef1bf6d18b1aa1.png"
+    },
+    "download": "https://cdn.modrinth.com/data/A1tEWpES/versions/XbLnAGyQ/circus_deco-0.1.0%2Bbuild.1-1.21.jar",
+    "source": "https://github.com/oliviathevampire/circusdeco/"
+  },
+  {
+    "id": "obscure_masks",
+    "name": "Obscure Masks",
+    "description": "Adds masks to the game with their own special abilities",
+    "authors": [
+      "lunacryl"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "IyTNAlEd",
+      "version_id": "eblOS83Z"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/IyTNAlEd/844d7667211dbe79c32cc69d94ca3077a26e9666.png",
+      "screenshot": "https://cdn.modrinth.com/data/IyTNAlEd/images/add1b663597d72892532ca7ad8de4cb6231e35da.png"
+    },
+    "download": "https://cdn.modrinth.com/data/IyTNAlEd/versions/eblOS83Z/obscuremasks-1.0.0-1.21.jar",
+    "source": "https://github.com/lunacryl/obscure-masks-1.21"
+  },
+  {
+    "id": "honque",
+    "name": "Honque",
+    "description": "clown nose",
+    "authors": [
+      "hamaindustries"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "xqSLPzRa",
+      "version_id": "55ip51OQ"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/xqSLPzRa/296c1a0ab577824264b82510d87b371010c33ca6.png",
+      "screenshot": "https://cdn.modrinth.com/data/xqSLPzRa/images/085bf3e5298cdab5066ea91d65a3e5c8c180bc66.png"
+    },
+    "download": "https://cdn.modrinth.com/data/xqSLPzRa/versions/55ip51OQ/honque-1.0.0.jar",
+    "source": "https://github.com/HamaIndustries/honque"
+  },
+  {
+    "id": "mirthdew_encore",
+    "name": "Mirthdew Encore",
+    "description": "Delve into the Dreams of the Dead.\nFill those Spirits with boundless Mirth.\nBring an End to their stagnation, with one final Encore.",
+    "authors": [
+      "phanastrae"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "LFMwgWDl",
+      "version_id": "dGeER7Hl"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/LFMwgWDl/a14dc870a1821b614836c7291c68e683b4f2e388.png",
+      "screenshot": "https://cdn.modrinth.com/data/LFMwgWDl/images/be8f62d91891879740221730e238f0dadb370355.png"
+    },
+    "download": "https://cdn.modrinth.com/data/LFMwgWDl/versions/dGeER7Hl/mirthdew_encore-0.1.4.1.jar",
+    "source": "https://github.com/Phanastrae/mirthdew_encore"
+  },
+  {
+    "id": "lias",
+    "name": "Lost In A Story",
+    "description": "A Mystcraft like adventure in a story world, what will you find? MODFEST: CARNIVAL ENTRY",
+    "authors": [
+      "acrogenous"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Lj6Ec0HL",
+      "version_id": "Vpxs1UxV"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Lj6Ec0HL/1f93a39ea7d69be1edf85d34b737c47862c8a0df.png",
+      "screenshot": "https://cdn.modrinth.com/data/Lj6Ec0HL/images/e2b7f53fc0abfeba573826be6e511f119ad88140.png"
+    },
+    "download": "https://cdn.modrinth.com/data/Lj6Ec0HL/versions/Vpxs1UxV/lias-0.0.1.jar",
+    "source": "https://github.com/JSJBDEV/LostInAStory"
+  },
+  {
+    "id": "carnival_foods",
+    "name": "Carnival Foods",
+    "description": "Adds some carnival foods (cotton candy and hotdogs)! Made for ModFest: Carnival.",
+    "authors": [
+      "anawesomguy"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "wsEZr1KV",
+      "version_id": "wiPIXuzY"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/wsEZr1KV/68d727058e17cf299540bb19c3c3c987fd68478b.png"
+    },
+    "download": "https://cdn.modrinth.com/data/wsEZr1KV/versions/wiPIXuzY/carnival-foods-0.2.0.jar",
+    "source": "https://github.com/AnAwesomGuy/carnival-foods"
+  },
+  {
+    "id": "rounded_mod",
+    "name": "Rounded",
+    "description": "Vanilla+ additions to round out the base game - initial release for ModFest: Carnival",
+    "authors": [
+      "lumiscosity"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "mOxEDNxy",
+      "version_id": "LmKH40TR"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/mOxEDNxy/fcc0478edb9acde28e2dc27b832cbbe8ff405b61.png",
+      "screenshot": "https://cdn.modrinth.com/data/mOxEDNxy/images/0a97c31f24b5ed9dd674ea3e9e8fa316744b3adb.png"
+    },
+    "download": "https://cdn.modrinth.com/data/mOxEDNxy/versions/LmKH40TR/rounded-1.0.3.jar",
+    "source": "https://github.com/lumiscosity/rounded"
+  },
+  {
+    "id": "carnival_confections",
+    "name": "Carnival Confections 🍬",
+    "description": "Bringing the vibrant and whimsical culinary delights of a carnival into the Minecraft world!",
+    "authors": [
+      "rulft44"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "UJCV0zWx",
+      "version_id": "rNlE0Zay"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/UJCV0zWx/43b57d724710722d11f5ffbd66318f4fcbeb73cb.png"
+    },
+    "download": "https://cdn.modrinth.com/data/UJCV0zWx/versions/rNlE0Zay/carnivalconfections-1.3.jar",
+    "source": "https://github.com/Rulft44/carnival-confections"
+  },
+  {
+    "id": "confetti_stuff",
+    "name": "Confetti Stuff",
+    "description": "Adds silly confetti related items and blocks",
+    "authors": [
+      "tomate0613"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "6yBwpkox",
+      "version_id": "BVBbhr3b"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/6yBwpkox/8ed2f35ff7d3cc1b266be66ac1dfa87c569c676b.png",
+      "screenshot": "https://cdn.modrinth.com/data/6yBwpkox/images/4df490affaf765f78b2070459102d1e75e055149.png"
+    },
+    "download": "https://cdn.modrinth.com/data/6yBwpkox/versions/BVBbhr3b/confetti_stuff-1.0.0.jar"
+  },
+  {
+    "id": "trickster",
+    "name": "Trickster",
+    "description": "A mod about magic, creativity, and trickery.",
+    "authors": [
+      "enjarai"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "ZdEfcqro",
+      "version_id": "wjNY96vv"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/ZdEfcqro/a5291291b90fde2b47e997492fb17add7e472885.png",
+      "screenshot": "https://cdn.modrinth.com/data/ZdEfcqro/images/22310489cdea5ada977ce64cdc1d20cfc783267b.png"
+    },
+    "download": "https://cdn.modrinth.com/data/ZdEfcqro/versions/wjNY96vv/trickster-1.0.0.jar",
+    "source": "https://github.com/enjarai/trickster"
+  },
+  {
+    "id": "lets_parkour",
+    "name": "Let\u0027s Parkour",
+    "description": "🦘 Adds various parkour related blocks to create an awesome track, made for ModFest: Carnival.",
+    "authors": [
+      "serilum"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "yCBnCQ6f",
+      "version_id": "kZkvR5Lr"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/yCBnCQ6f/44d609d4d6d58b37eae70acb955c871ae32be5f9.gif",
+      "screenshot": "https://cdn.modrinth.com/data/yCBnCQ6f/images/b895d5a52e6d6159d81d228deefc8af6d7fc064f.gif"
+    },
+    "download": "https://cdn.modrinth.com/data/yCBnCQ6f/versions/kZkvR5Lr/letsparkour-1.21.0-1.0.jar",
+    "source": "https://github.com/Serilum/Lets-Parkour"
+  },
+  {
+    "id": "carnival_cuisine",
+    "name": "Carnival Cuisine",
+    "description": "Adds some carnival food and drinks to enjoy for Modfest: Carnival!",
+    "authors": [
+      "itstoastcraft"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "q0W2RUFs",
+      "version_id": "86AtLaZB"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/q0W2RUFs/9a9eaa9192c1aabcff9bf2688d5794d2f4ef25a1.png",
+      "screenshot": "https://cdn.modrinth.com/data/q0W2RUFs/images/898f40b9763477f7faf67969f6713f38cd8b3dee.png"
+    },
+    "download": "https://cdn.modrinth.com/data/q0W2RUFs/versions/86AtLaZB/carnival-cuisine-0.0.4.jar",
+    "source": "https://github.com/ItsToastCraft/carnival-additions-1.21/tree/main"
+  },
+  {
+    "id": "mid_journey",
+    "name": "Mid Journey",
+    "description": "Kinda mid. A satire AI mod for ModFest: Carnival",
+    "authors": [
+      "theepicblock"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "GqFnaUlv",
+      "version_id": "UdDEAJoj"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/GqFnaUlv/61795a16d753d1ca568a3d1ae5c64117c3494f1a.png",
+      "screenshot": "https://cdn.modrinth.com/data/GqFnaUlv/images/290a7aec2d389d49775544b5a76df262ec5cbabe.png"
+    },
+    "download": "https://cdn.modrinth.com/data/GqFnaUlv/versions/UdDEAJoj/mid-journey-1.0.1.jar",
+    "source": "https://github.com/TheEpicBlock/mid-journey/"
+  },
+  {
+    "id": "magicians_hat",
+    "name": "Magician\u0027s Hat",
+    "description": "A new item used to magically store and expel items as well as become a fashion piece",
+    "authors": [
+      "bug1312"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "UeEP05XD",
+      "version_id": "bRkxQmmB"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/UeEP05XD/82e16ffc93ed97674a27c2c5780cea1c09e4a7d3.png"
+    },
+    "download": "https://cdn.modrinth.com/data/UeEP05XD/versions/bRkxQmmB/magicians_hat-1.0.0.jar",
+    "source": "https://github.com/Bug1312/magicians_hat"
+  },
+  {
+    "id": "spirit_vector",
+    "name": "Dream Burst Spirit Vector",
+    "description": "Fully customizeable fantasy roller parkour. Fly forth, Spirit Vector!",
+    "authors": [
+      "hamaindustries",
+      "nulb"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "vT1MJIWD",
+      "version_id": "LlWcfGz0"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/vT1MJIWD/f007b2e98151a2cfb3638bc451a4ffe56c631005.png",
+      "screenshot": "https://cdn.modrinth.com/data/vT1MJIWD/images/d447df8f23f9a5afab57c3ed8162cd3126eb063a.png"
+    },
+    "download": "https://cdn.modrinth.com/data/vT1MJIWD/versions/LlWcfGz0/spirit_vector-1.6.0.jar",
+    "source": "https://github.com/HamaIndustries/spirit-vector"
+  },
+  {
+    "id": "confetti_lib",
+    "name": "Confetti Lib",
+    "description": "Adds confetti particles to the game, which can be used by other mods",
+    "authors": [
+      "tomate0613"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "5s9W6kVl",
+      "version_id": "ujpBqvnE"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/5s9W6kVl/7a1c75ebdce179d2eab6232b8a42db55034520ce.png",
+      "screenshot": "https://cdn.modrinth.com/data/5s9W6kVl/images/755ef1790312ff781b3555c0ce19dc6a0f251758.png"
+    },
+    "download": "https://cdn.modrinth.com/data/5s9W6kVl/versions/ujpBqvnE/Confetti-1.2.1%2B1.21.jar",
+    "source": "https://github.com/Tomate0613/confetti"
+  },
+  {
+    "id": "wowozela",
+    "name": "Wowozela",
+    "description": "A fretless instrument that change pitch depending on your eye pitch",
+    "authors": [
+      "chai"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "IrWit47r",
+      "version_id": "IvMf0eyf"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/IrWit47r/42d7ba394c997957abd6cbd1169e051eeab6b410.png",
+      "screenshot": "https://cdn.modrinth.com/data/IrWit47r/images/fe3b4264cf48ab3387ce690525192930be920f9a.gif"
+    },
+    "download": "https://cdn.modrinth.com/data/IrWit47r/versions/IvMf0eyf/wowozela-1.0.2%2Bmodfest.jar",
+    "source": "https://github.com/Chailotl/wowozela"
+  },
+  {
+    "id": "customizable_carts",
+    "name": "Customizable Carts",
+    "description": "Customizable Carts adds a variety of new minecart designs that can be customized with various parts",
+    "authors": [
+      "ultrusbot"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "N5SI6Kbt",
+      "version_id": "RjtE06Hx"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/N5SI6Kbt/7bbe5b6567d2b7d1e2ef4a05908f715b0946bb21.png",
+      "screenshot": "https://cdn.modrinth.com/data/N5SI6Kbt/images/d5c707918536c7dac7078ae9cedc74c23c86b104.png"
+    },
+    "download": "https://cdn.modrinth.com/data/N5SI6Kbt/versions/RjtE06Hx/customizablecarts-0.1.0.jar",
+    "source": "https://github.com/UltrusBot/CustomizableCarts"
+  },
+  {
+    "id": "extravaganza",
+    "name": "Extravaganza!",
+    "description": "Extravaganza! is a mod about adding carnival and festivity goodies, as well as some amusing activities through blocks, entities or items.",
+    "authors": [
+      "chatoine",
+      "neokys",
+      "firstmegagame4",
+      "aethyus",
+      "aeramisu_"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "Joiujp4e",
+      "version_id": "VfWrWp5b"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/Joiujp4e/1e7daa09d1604ca821d345251d76b477ea95e54c.png",
+      "screenshot": "https://cdn.modrinth.com/data/Joiujp4e/images/42feabf49cb78a043030203bc3115bcffe9e7b02.webp"
+    },
+    "download": "https://cdn.modrinth.com/data/Joiujp4e/versions/VfWrWp5b/extravaganza-0.1.8-beta.jar",
+    "source": "https://github.com/MModding/extravaganza"
+  },
+  {
+    "id": "ouch",
+    "name": "Ouch!",
+    "description": "Customisable, server side damage indicator! For Fabric",
+    "authors": [
+      "patbox"
+    ],
+    "platform": {
+      "type": "modrinth",
+      "project_id": "nbxqFJCy",
+      "version_id": "NFHVjdnX"
+    },
+    "images": {
+      "icon": "https://cdn.modrinth.com/data/nbxqFJCy/7f4d9af273f1ad92ef4d21e175bb8b8967c18ef5.png",
+      "screenshot": "https://cdn.modrinth.com/data/nbxqFJCy/images/2d55baa0886deb83010bdc3a2b0a88f9efdc82ca.png"
+    },
+    "download": "https://cdn.modrinth.com/data/nbxqFJCy/versions/NFHVjdnX/ouch-1.0.0%2B1.21.jar",
+    "source": "https://github.com/patbox/ouch"
+  }
+]
