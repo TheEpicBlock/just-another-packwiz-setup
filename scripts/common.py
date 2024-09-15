@@ -3,9 +3,10 @@ import os
 import shutil
 import time
 from pathlib import Path
+import hashlib
 
 def check_packwiz():
-    packwiz = os.environ["PACKWIZ"] if "PACKWIZ" in os.environ else "packwiz"
+    packwiz = env("PACKWIZ", default="packwiz")
     if shutil.which(packwiz) == None:
         raise RuntimeError(f"!!! Couldn't find packwiz (looked for '{packwiz}'). Please put packwiz on your path or set the PACKWIZ environment variable to a packwiz executable")
     return packwiz
@@ -29,6 +30,18 @@ class JSONWithCommentsDecoder(json.JSONDecoder):
 
 def jsonc_at_home(input):
     return json.loads(input, cls=JSONWithCommentsDecoder)
+
+def hash(values: list[str]):
+    hasher = hashlib.sha256()
+    for value in values:
+        hasher.update(value.encode("UTF-8"))
+    return hasher.hexdigest()
+
+def env(env: str, **kwargs):
+    if env in os.environ:
+        return os.environ[env]
+    else:
+        return kwargs.get("default")
 
 class Ratelimiter:
     def __init__(self, time):

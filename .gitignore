@@ -1,5 +1,9 @@
 *.mrpack
+# Output of assemble_packwiz.py
 /pack_generated
+# run_test.py will run a minecraft server here
+/run
+
 /pack/index.toml
 
 # The banes of all git repos
