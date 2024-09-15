@@ -48,9 +48,9 @@ jobs:
           name: "Linux 64-bit x86"
           path: ${{ env.PACKWIZ_DIR }}
           commit: ${{ env.PACKWIZ_COMMIT }}
+      - name: Make packwiz executable
+        run: chmod +x ${{ env.PACKWIZ }}
 
-      - name: Ugh I need to debug this
-        run: ls ${{ env.PACKWIZ_DIR }}
       - name: Install python dependencies
         run: pip install -r requirements.txt
       - name: Build pack
