@@ -179,6 +179,46 @@
     },
     "url": "https://cdn.modrinth.com/data/vBoXEK2I/versions/pZeJGAzQ/breezebounce-1.0.0.jar"
   },
+  "carnival_confections": {
+    "files": {
+      "carnival-confections.pw.toml": {
+        "download": {
+          "hash": "7b3632b20c7434f111dc30542750006c1f576808e0076cedcc1fa550c829a792675fd0ad74f9624abb832a62fe7be235aa16248f235bd97eeb60f4887f08989c",
+          "hash-format": "sha512",
+          "url": "https://cdn.modrinth.com/data/UJCV0zWx/versions/rNlE0Zay/carnivalconfections-1.3.jar"
+        },
+        "filename": "carnivalconfections-1.3.jar",
+        "name": "Carnival Confections \ud83c\udf6c",
+        "side": "both"
+      },
+      "fabric-api.pw.toml": {
+        "download": {
+          "hash": "11732c4e36c3909360a24aa42a44da89048706cf10aaafa0404d7153cbc7395ff68a130f7b497828d6932740e004416b692650c3fbcc1f32babd7cb6eb9791d8",
+          "hash-format": "sha512",
+          "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/oGwyXeEI/fabric-api-0.102.0%2B1.21.jar"
+        },
+        "filename": "fabric-api-0.102.0+1.21.jar",
+        "name": "Fabric API",
+        "side": "both"
+      }
+    },
+    "url": "https://cdn.modrinth.com/data/UJCV0zWx/versions/rNlE0Zay/carnivalconfections-1.3.jar"
+  },
+  "carnival_cuisine": {
+    "files": {
+      "carnival-cuisine.pw.toml": {
+        "download": {
+          "hash": "5c7bfb2d28354d0533389d12f557023641df09b5699c7532283077ae990c56b9f8594b852d3cb1b876c5b083571fa6c3b283accfff9a0de8632f48025bf9f7fc",
+          "hash-format": "sha512",
+          "url": "https://cdn.modrinth.com/data/q0W2RUFs/versions/86AtLaZB/carnival-cuisine-0.0.4.jar"
+        },
+        "filename": "carnival-cuisine-0.0.4.jar",
+        "name": "Carnival Cuisine",
+        "side": "both"
+      }
+    },
+    "url": "https://cdn.modrinth.com/data/q0W2RUFs/versions/86AtLaZB/carnival-cuisine-0.0.4.jar"
+  },
   "carnival_foods": {
     "files": {
       "carnival-foods.pw.toml": {
