@@ -1,1 +1,6 @@
 __pycache__
+*.mrpack
+
+# The banes of all git repos
+.DS_STORE
+.idea/
