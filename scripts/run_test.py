@@ -3,6 +3,7 @@ import os
 import urllib.request
 import subprocess
 from pathlib import Path
+import sys
 
 import common
 
@@ -98,8 +99,22 @@ def main():
 
     # Run the server
     worlds_dir = test_server_working / "worlds"
+    worlds_dir.mkdir(exists_ok=True)
     os.chdir(minecraft_dir) # mc misbehaves unless the pwd matches this. NeoForge refuses to run and Fabric will dump a bunch of files here
-    subprocess.run(server_run_cmd + ["--universe", worlds_dir, "--gameDir", game_dir, "--no-gui"])
+    server_run_cmd += ["--nogui"]
+    server_run_cmd += ["--universe", worlds_dir]
+    if loader == "fabric":
+        # Will look for the mods here, but it'll also dump libraries here unfortunately
+        os.chdir(game_dir)
+    elif loader == "neoforge":
+        server_run_cmd += ["--gameDir", game_dir]
+        os.chdir(minecraft_dir) # Won't launch unless these match
+    print(f"Running minecraft with {server_run_cmd}")
+    
+    result = subprocess.run(server_run_cmd)
+    if result.returncode != 0:
+        print(f"! Minecraft returned status code {result.returncode}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
