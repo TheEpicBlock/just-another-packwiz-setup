@@ -49,6 +49,8 @@ jobs:
           path: ${{ env.PACKWIZ_DIR }}
           commit: ${{ env.PACKWIZ_COMMIT }}
 
+      - name: Ugh I need to debug this
+        run: ls ${{ env.PACKWIZ_DIR }}
       - name: Install python dependencies
         run: pip install -r requirements.txt
       - name: Build pack
