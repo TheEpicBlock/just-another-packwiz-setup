@@ -39,6 +39,8 @@ jobs:
           name: "Linux 64-bit x86"
           path: ${{ env.PACKWIZ_DIR }}
           commit: ${{ env.PACKWIZ_COMMIT }}
+      - name: Make packwiz executable
+        run: chmod +x ${{ env.PACKWIZ }}
 
       # Run and commit
 
