@@ -4,12 +4,33 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  PACKWIZ_COMMIT: 0bb89a4872d8dc2c45af251345ee780cab7ab9ad
+  PACKWIZ_DIR: /tmp/packwiz_artifact
+  PACKWIZ: /tmp/packwiz_artifact/packwiz
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Cache Packwiz
+        id: cache-packwiz
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PACKWIZ_DIR }}
+          key: packwiz-${{ env.PACKWIZ_COMMIT }}
+      - if: ${{ steps.cache-packwiz.outputs.cache-hit != 'true' }}
+        name: Download Packwiz
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          repo: packwiz/packwiz
+          name: "Linux 64-bit x86"
+          path: ${{ env.PACKWIZ_DIR }}
+          commit: ${{ env.PACKWIZ_COMMIT }}
 
       # This script does not have any dependencies, so a pip install is not needed
       - name: Build pack
