@@ -28,6 +28,7 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           repo: packwiz/packwiz
+          workflow: go.yml
           name: "Linux 64-bit x86"
           path: ${{ env.PACKWIZ_DIR }}
           commit: ${{ env.PACKWIZ_COMMIT }}
