@@ -17,6 +17,8 @@ def main():
     if dest_pack.exists():
         shutil.rmtree(dest_pack)
     shutil.copytree(source_pack, dest_pack)
+    if not (dest_pack / "index.toml").exists():
+        (dest_pack / "index.toml").touch()
 
     exclusions = list(filter(lambda l : len(l) > 0, [re.sub("#.*", "", l.strip()) for l in common.read_file(exclude_file).split("\n")]))
 

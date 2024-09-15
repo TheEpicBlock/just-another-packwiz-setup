@@ -1,7 +1,8 @@
-__pycache__
 *.mrpack
 /pack_generated
+/pack/index.toml
 
 # The banes of all git repos
+__pycache__
 .DS_STORE
 .idea/
