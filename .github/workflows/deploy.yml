@@ -32,6 +32,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Set up dependencies
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+
       - name: Cache Packwiz
         id: cache-packwiz
         uses: actions/cache@v3
@@ -51,11 +59,15 @@ jobs:
       - name: Make packwiz executable
         run: chmod +x ${{ env.PACKWIZ }}
 
-      - name: Install python dependencies
-        run: pip install -r requirements.txt
+      # Build
+
       - name: Build pack
         run: python scripts/assemble_packwiz.py
 
+      # TODO: test
+
+      # Deploy
+      
       - name: Configure pages
         id: pages
         uses: actions/configure-pages@v3

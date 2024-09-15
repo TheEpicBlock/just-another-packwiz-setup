@@ -16,6 +16,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Set up dependencies
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+        # This script does not have any dependencies, so a pip install is not needed
+
       - name: Cache Packwiz
         id: cache-packwiz
         uses: actions/cache@v3
@@ -33,7 +40,8 @@ jobs:
           path: ${{ env.PACKWIZ_DIR }}
           commit: ${{ env.PACKWIZ_COMMIT }}
 
-      # This script does not have any dependencies, so a pip install is not needed
+      # Run and commit
+
       - name: Build pack
         run: python scripts/pull_platform.py
         
