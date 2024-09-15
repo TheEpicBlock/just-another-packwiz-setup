@@ -4,6 +4,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 env:
   PACKWIZ_COMMIT: 0bb89a4872d8dc2c45af251345ee780cab7ab9ad
   PACKWIZ_DIR: /tmp/packwiz_artifact
