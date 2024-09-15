@@ -22,12 +22,12 @@ def main():
     # Download the json
     event_name = constants["event"]
     submissions_url = f"https://platform.modfest.net/event/{event_name}/submissions"
-    urllib.request.urlretrieve(submissions_url, submissions_file)
+    with urllib.request.urlopen(submissions_url) as submissions:
+        submission_data = json.load(submissions)
 
     # Update the lock file
     # Read the needed files and transform the submission data into a dict where the ids are keys
     lock_data = json.loads(common.read_file(submission_lock_file)) if submission_lock_file.exists() else {}
-    submission_data = json.loads(common.read_file(submissions_file))
     submissions_by_id = {s["id"]:s for s in submission_data}
 
     # Remove stale data
@@ -75,7 +75,7 @@ def main():
     
     # Write the update lock data back
     with open(submission_lock_file, "w") as f:
-        f.write(json.dumps(lock_data, indent=2))
+        f.write(json.dumps(lock_data, indent=2, sort_keys=True))
 
 if __name__ == "__main__":
     main()
