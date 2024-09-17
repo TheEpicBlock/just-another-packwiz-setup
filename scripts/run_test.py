@@ -111,7 +111,7 @@ def main():
         os.chdir(minecraft_dir) # Won't launch unless these match
     print(f"Running minecraft with {server_run_cmd}")
     
-    result = subprocess.run(server_run_cmd)
+    result = subprocess.run(server_run_cmd, timeout=120)
     if result.returncode != 0:
         print(f"! Minecraft returned status code {result.returncode}")
         sys.exit(1)

@@ -24,6 +24,7 @@ env:
   PACKWIZ_COMMIT: 0bb89a4872d8dc2c45af251345ee780cab7ab9ad
   PACKWIZ_DIR: /tmp/packwiz_artifact
   PACKWIZ: /tmp/packwiz_artifact/packwiz
+  PACKWIZ_BOOTSTRAP_VERSION: "v3.0.0"
 
 jobs:
   build_test_deploy:
@@ -64,7 +65,18 @@ jobs:
       - name: Build pack
         run: python scripts/assemble_packwiz.py
 
-      # TODO: test
+      # Test
+      - name: Cache Packwiz Bootstrap
+        uses: actions/cache@v3
+        with:
+          path: run/packwiz-installer
+          key: packwiz-bootstrap-${{ env.PACKWIZ_BOOTSTRAP_VERSION }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Test pack
+        run: python scripts/run_test.py
 
       # Deploy
 
