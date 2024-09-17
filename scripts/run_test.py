@@ -53,6 +53,7 @@ def main():
     # Set up modloader
     server_hash = common.hash([mc_version, loader, loader_version])
     minecraft_dir = test_server_working / "loader" / server_hash
+    game_dir = test_server_working / "game"
     minecraft_cached = minecraft_dir.exists()
     server_run_cmd = None
     if loader == "fabric":
@@ -76,12 +77,15 @@ def main():
         raise RuntimeError(f"{loader} not handled")
     
     # Accept eula
-    with open(minecraft_dir / "eula.txt", "w") as f:
-        f.write("eula=true")
+    if loader == "fabric":
+        with open(game_dir / "eula.txt", "w") as f:
+            f.write("eula=true")
+    elif loader == "neoforge":
+        with open(minecraft_dir / "eula.txt", "w") as f:
+            f.write("eula=true")
 
     # Set up the packwiz and game dir
     packwiz_dir = test_server_working / "packwiz-installer"
-    game_dir = test_server_working / "game"
     packwiz_bootstrap = packwiz_dir / "packwiz-bootstrap.jar"
     if not packwiz_bootstrap.exists():
         print("Installing packwiz bootstrap")
