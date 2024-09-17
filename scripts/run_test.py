@@ -99,7 +99,7 @@ def main():
 
     # Run the server
     worlds_dir = test_server_working / "worlds"
-    worlds_dir.mkdir(exists_ok=True)
+    worlds_dir.mkdir(exist_ok=True)
     os.chdir(minecraft_dir) # mc misbehaves unless the pwd matches this. NeoForge refuses to run and Fabric will dump a bunch of files here
     server_run_cmd += ["--nogui"]
     server_run_cmd += ["--universe", worlds_dir]
