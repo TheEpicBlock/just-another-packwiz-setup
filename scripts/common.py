@@ -7,9 +7,24 @@ import hashlib
 
 def check_packwiz():
     packwiz = env("PACKWIZ", default="packwiz")
-    if shutil.which(packwiz) == None:
+    if p := shutil.which(packwiz):
+        return p
+    else:
         raise RuntimeError(f"!!! Couldn't find packwiz (looked for '{packwiz}'). Please put packwiz on your path or set the PACKWIZ environment variable to a packwiz executable")
-    return packwiz
+
+def check_java():
+    java = "java"
+    if "JAVA_HOME" in os.environ:
+        java = Path(os.environ["JAVA_HOME"]) / "bin/java"
+        if not java.exists():
+            raise RuntimeError(f"!!! JAVA_HOME is invalid. {java} does not exist")
+        return java
+    else:
+        if java := shutil.which("java"):
+            return p
+        else:
+            raise RuntimeError(f"!!! Couldn't find java on path. Please add it or set JAVA_HOME")
+
 
 def get_repo_root():
     # This file should be located in <repo_root>/scripts/common.py, so the root

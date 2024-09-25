@@ -9,6 +9,7 @@ import common
 
 def main():
     repo_root = common.get_repo_root()
+    java = common.check_java()
     pack = repo_root / "pack_generated"
     pack_toml_file = pack / "pack.toml"
     test_server_working = Path(common.env("WORK_DIR", default=(repo_root / "run")))
@@ -55,7 +56,7 @@ def main():
     minecraft_dir = test_server_working / "loader" / server_hash
     game_dir = test_server_working / "game"
     minecraft_cached = minecraft_dir.exists()
-    server_run_cmd = None
+    server_jar = None
     if loader == "fabric":
         server_jar = minecraft_dir / "server.jar"
         if not minecraft_cached:
@@ -63,7 +64,6 @@ def main():
             minecraft_dir.mkdir(exist_ok=True, parents=True)
             fabric_installer = "1.0.1"
             urllib.request.urlretrieve(f"https://meta.fabricmc.net/v2/versions/loader/{mc_version}/{loader_version}/{fabric_installer}/server/jar", server_jar)
-        server_run_cmd = ["java", "-jar", server_jar]
     elif loader == "neoforge":
         installer_file = minecraft_dir / f"installer.jar"
         if not minecraft_cached:
@@ -72,7 +72,8 @@ def main():
             urllib.request.urlretrieve(f"https://maven.neoforged.net/releases/net/neoforged/neoforge/{loader_version}/neoforge-{loader_version}-installer.jar", installer_file)
             subprocess.run(["java", "-jar", installer_file, "--install-server", minecraft_dir])
             print("! Neoforge installer ran")
-        server_run_cmd = [minecraft_dir / ("run.bat" if os.name == "nt" else "run.sh")]
+        # TODO
+        # server_run_cmd = [minecraft_dir / ("run.bat" if os.name == "nt" else "run.sh")]
     else:
         raise RuntimeError(f"{loader} not handled")
     
@@ -93,7 +94,7 @@ def main():
         packwiz_dir.mkdir(exist_ok=True)
         urllib.request.urlretrieve(f"https://github.com/packwiz/packwiz-installer-bootstrap/releases/download/{bootstrap_version}/packwiz-installer-bootstrap.jar", packwiz_bootstrap)
     subprocess.run([
-        "java", "-jar", packwiz_bootstrap,
+        java, "-jar", packwiz_bootstrap,
         "--no-gui",
         # Ensures bootstrap installs packwiz to `packwiz_dir` for caching reasons
         "--bootstrap-main-jar", packwiz_dir / "packwiz-installer.jar",
@@ -101,10 +102,14 @@ def main():
         f"file://{pack_toml_file}"
     ])
 
+    # Setup the testing java agent
+    agent_jar = Path("/home/k/Documents/dev/mc-test-injector/build/libs/McTestInjector-0.0.1.jar")
+
     # Run the server
     worlds_dir = test_server_working / "worlds"
     worlds_dir.mkdir(exist_ok=True)
     os.chdir(minecraft_dir) # mc misbehaves unless the pwd matches this. NeoForge refuses to run and Fabric will dump a bunch of files here
+    server_run_cmd = [java, f"-javaagent:{agent_jar}", "-jar", server_jar]
     server_run_cmd += ["--nogui"]
     server_run_cmd += ["--universe", worlds_dir]
     if loader == "fabric":
