@@ -11,7 +11,7 @@ def main():
     submission_lock_file = repo_root / "submissions-lock.json"
     source_pack = repo_root / "pack"
     dest_pack = repo_root / "pack_generated"
-    exclude_file = repo_root / "platform_exclude.txt"
+    exclude_file = repo_root / "platform.ignore"
     packwiz = common.check_packwiz()
 
     common.fix_packwiz_pack(source_pack / "pack.toml")
