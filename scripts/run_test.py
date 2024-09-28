@@ -79,10 +79,13 @@ def main():
     
     # Accept eula
     if loader == "fabric":
-        with open(game_dir / "eula.txt", "w") as f:
-            f.write("eula=true")
+        eula = game_dir / "eula.txt"
     elif loader == "neoforge":
-        with open(minecraft_dir / "eula.txt", "w") as f:
+        eula = minecraft_dir / "eula.txt"
+    if not eula.exists():
+        eula.parent.mkdir(exist_ok=True, parents=True)
+        eula.touch()
+        with open(eula, "w") as f:
             f.write("eula=true")
 
     # Set up the packwiz and game dir
