@@ -15,4 +15,4 @@ Run `scripts/assemble_packwiz.py`. It will output a full packwiz pack in `genera
 ## Creating auto-updating packs
 Running `scripts/assemble_unsup.py` will create two zip files in the `generated` directory.
 The file without a suffix can be put loaded into prism launcher.
-The `-server.zip` file contains files needed to run a server (note, for NeoForge this zip will be quite barren).
+The `-server.zip` file contains files needed to run a server. For Fabric it will contain a full server instance. For NeoForge you should run the server installer yourself and copy these files over top.

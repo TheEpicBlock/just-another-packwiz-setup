@@ -65,6 +65,22 @@ def main():
             unsupini.write(create_unsup_ini(url).encode("utf-8"))
     print(f"Wrote to \"{prism.relative_to(generated_dir)}\"")
 
+    server_zip = generated_dir / f"{packwiz_info.safe_name()}-server.zip"
+    with ZipFile(server_zip, "w", compression=zipfile.ZIP_DEFLATED) as output_zip:
+        if packwiz_info.loader == "fabric":
+            print(f"{Ansi.WARN}Fabric server zips are not supported yet{Ansi.RESET}")
+        elif packwiz_info.loader == "neoforge":
+            with output_zip.open("user_jvm_args.txt", mode="w") as jvm_args:
+                jvm_args.write("-javaagent:unsup.jar".encode("utf-8"))
+
+        with output_zip.open("unsup.jar", mode="w") as unsup_out:
+            with open(unsup_jar_file, "rb") as unsup_src:
+                unsup_out.write(unsup_src.read())
+
+        with output_zip.open("unsup.ini", mode="w") as unsupini:
+            unsupini.write(create_unsup_ini(url).encode("utf-8"))
+    print(f"Wrote to \"{server_zip.relative_to(generated_dir)}\"")
+
 # Creates a patch file which tells prism to
 # load unsup as an agent
 def create_unsup_patch(unsup_version):
