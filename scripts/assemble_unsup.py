@@ -18,6 +18,8 @@ def main():
     if url == None:
         print(f"{Ansi.ERROR}Please set the URL environment variable to the public url for this pack{Ansi.RESET}")
         sys.exit(1)
+    if not url.endswith("pack.toml"):
+        print(f"{Ansi.WARN}URL does not end with \"pack.toml\", please make sure it's correct{Ansi.RESET}")
     unsup_v = common.env("UNSUP_VERSION", default="0.2.3")
 
     print(f"Using unsup version {unsup_v}")
