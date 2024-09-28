@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 import sys
 import common
+from common import Ansi
 
 def main():
     modrinth_api = "https://api.modrinth.com/v2"
@@ -25,7 +26,7 @@ def main():
     # Download the json
     event_name = constants["event"]
     if event_name == None:
-        print(f"No event name defined. Treating it as if there were zero submissions")
+        print(f"{Ansi.WARN}No event name defined. Treating it as if there were zero submissions{Ansi.RESET}")
         print(f"Was this unintentional? Check {constants_file.relative_to(repo_root)} and make sure it defines \"event\"")
         submission_data = []
     else:

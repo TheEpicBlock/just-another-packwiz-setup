@@ -6,6 +6,13 @@ from pathlib import Path
 import hashlib
 import tomllib
 
+class Ansi:
+    BOLD = '\033[1m'
+    ITALIC = '\033[3m'
+    YELLOW_FG = '\033[33m'
+    WARN = YELLOW_FG+BOLD
+    RESET = '\033[0m'
+
 def check_packwiz():
     packwiz = env("PACKWIZ", default="packwiz")
     if p := shutil.which(packwiz):
