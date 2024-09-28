@@ -103,15 +103,20 @@ def main():
     ])
 
     # Setup the testing java agent
-    agent_jar = Path("/home/k/Documents/dev/mc-test-injector/build/libs/McTestInjector-0.0.1.jar")
+    agent_jar = common.env("AGENT")
 
     # Run the server
     worlds_dir = test_server_working / "worlds"
     worlds_dir.mkdir(exist_ok=True)
-    os.chdir(minecraft_dir) # mc misbehaves unless the pwd matches this. NeoForge refuses to run and Fabric will dump a bunch of files here
-    server_run_cmd = [java, f"-javaagent:{agent_jar}", "-jar", server_jar]
+    
+    server_run_cmd = [java]
+    if agent_jar:
+        agent_jar = Path(agent_jar).resolve()
+        server_run_cmd += [f"-javaagent:{agent_jar}"]
+    server_run_cmd += ["-jar", server_jar]
     server_run_cmd += ["--nogui"]
     server_run_cmd += ["--universe", worlds_dir]
+    
     if loader == "fabric":
         # Will look for the mods here, but it'll also dump libraries here unfortunately
         os.chdir(game_dir)
