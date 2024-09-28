@@ -6,6 +6,7 @@ import tempfile
 import os
 from pathlib import Path
 import shutil
+import sys
 import common
 
 def main():
@@ -23,9 +24,14 @@ def main():
     
     # Download the json
     event_name = constants["event"]
-    submissions_url = f"https://platform.modfest.net/event/{event_name}/submissions"
-    with urllib.request.urlopen(submissions_url) as submissions:
-        submission_data = json.load(submissions)
+    if event_name == None:
+        print(f"No event name defined. Treating it as if there were zero submissions")
+        print(f"Was this unintentional? Check {constants_file.relative_to(repo_root)} and make sure it defines \"event\"")
+        submission_data = []
+    else:
+        submissions_url = f"https://platform.modfest.net/event/{event_name}/submissions"
+        with urllib.request.urlopen(submissions_url) as submissions:
+            submission_data = json.load(submissions)
 
     # Update the lock file
     # Read the needed files and transform the submission data into a dict where the ids are keys
@@ -33,9 +39,7 @@ def main():
     submissions_by_id = {s["id"]:s for s in submission_data}
 
     # Remove stale data
-    for key in lock_data:
-        if not key in submissions_by_id:
-            del lock_data[key]
+    lock_data = {k:v for k,v in lock_data.items() if (k in submissions_by_id)}
     
     # Loop through all submissions
     rate_limit = common.Ratelimiter(5)
@@ -78,6 +82,10 @@ def main():
     # Write the update lock data back
     with open(submission_lock_file, "w") as f:
         f.write(json.dumps(lock_data, indent=2, sort_keys=True))
+
+    # Make it clear that this script didn't really do anything if event_name is null
+    if event_name == None:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
