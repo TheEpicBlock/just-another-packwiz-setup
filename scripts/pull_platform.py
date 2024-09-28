@@ -16,6 +16,8 @@ def main():
     submission_lock_file = repo_root / "submissions-lock.json"
     packwiz_pack_toml = repo_root / "pack" / "pack.toml"
     packwiz = common.check_packwiz()
+    
+    common.fix_packwiz_pack(packwiz_pack_toml)
 
     constants = common.jsonc_at_home(common.read_file(constants_file))
     

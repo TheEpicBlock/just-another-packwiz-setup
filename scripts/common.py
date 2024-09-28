@@ -4,6 +4,7 @@ import shutil
 import time
 from pathlib import Path
 import hashlib
+import tomllib
 
 def check_packwiz():
     packwiz = env("PACKWIZ", default="packwiz")
@@ -25,7 +26,6 @@ def check_java():
         else:
             raise RuntimeError(f"!!! Couldn't find java on path. Please add it or set JAVA_HOME")
 
-
 def get_repo_root():
     # This file should be located in <repo_root>/scripts/common.py, so the root
     # is one directory up from this one
@@ -34,6 +34,12 @@ def get_repo_root():
 def read_file(path):
     with open(path, "r") as f:
         return f.read()
+
+def fix_packwiz_pack(pack_toml):
+    data = tomllib.loads(read_file(pack_toml))
+    index = pack_toml.parent / data["index"]["file"]
+    if not index.exists():
+        index.touch()
 
 class JSONWithCommentsDecoder(json.JSONDecoder):
     def __init__(self, **kw):

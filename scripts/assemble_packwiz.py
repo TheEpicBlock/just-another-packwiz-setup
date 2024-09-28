@@ -14,11 +14,12 @@ def main():
     exclude_file = repo_root / "platform_exclude.txt"
     packwiz = common.check_packwiz()
 
+    common.fix_packwiz_pack(source_pack / "pack.toml")
+
     if dest_pack.exists():
         shutil.rmtree(dest_pack)
     shutil.copytree(source_pack, dest_pack)
-    if not (dest_pack / "index.toml").exists():
-        (dest_pack / "index.toml").touch()
+    common.fix_packwiz_pack(dest_pack / "pack.toml")
 
     exclusions = list(filter(lambda l : len(l) > 0, [re.sub("#.*", "", l.strip()) for l in common.read_file(exclude_file).split("\n")]))
 
