@@ -5,12 +5,16 @@ import time
 from pathlib import Path
 import hashlib
 import tomllib
+from dataclasses import dataclass
+import re
 
 class Ansi:
     BOLD = '\033[1m'
     ITALIC = '\033[3m'
     YELLOW_FG = '\033[33m'
+    RED_FG = '\033[31m'
     WARN = YELLOW_FG+BOLD
+    ERROR = RED_FG+BOLD
     RESET = '\033[0m'
 
 def check_packwiz():
@@ -39,7 +43,10 @@ def get_repo_root():
     return Path(os.path.join(os.path.dirname(__file__), '..'))
 
 def get_generated_dir():
-    return env("OUTPUT_DIR", default=(get_repo_root() / "generated"))
+    dir = env("OUTPUT_DIR", default=(get_repo_root() / "generated"))
+    if not dir.exists():
+        dir.mkdir(exist_ok=True, parents=True)
+    return dir
 
 def read_file(path):
     with open(path, "r") as f:
@@ -83,3 +90,46 @@ class Ratelimiter:
     def limit(self):
         time.sleep(max(0, self.wait_time - (time.time() - self.last_action)))
         self.last_action = time.time()
+
+def parse_packwiz(pack_toml_file):
+    pack_toml = tomllib.loads(read_file(pack_toml_file))
+    
+    version_data = pack_toml["versions"]
+    if not "minecraft" in version_data:
+        raise Exception("pack.toml doesn't define a minecraft version")
+
+    # detect loader
+    supported_loaders = ["fabric", "neoforge"]
+    loaders = {k:v for k, v in version_data.items() if k in supported_loaders}
+    if len(loaders) >= 2:
+        raise Exception("pack is using multiple loaders, unsure which one to use: ["+", ".join(loaders.keys())+"]")
+    if len(loaders) == 0:
+        raise Exception("pack does not seem to define a loader")
+
+    loader = list(loaders.keys())[0]
+    loader_version = list(loaders.values())[0]
+
+    for v in version_data:
+        if v != "minecraft" and v not in supported_loaders:
+            raise Exception(f"pack is using unsupported software: {v}")
+
+    return PackwizPackInfo(
+        pack_toml.get("name"),
+        pack_toml.get("author"),
+        pack_toml.get("version"),
+        version_data["minecraft"],
+        loader,
+        loader_version
+    )
+
+@dataclass
+class PackwizPackInfo:
+    name: str
+    author: str
+    pack_version: str
+    minecraft_version: str
+    loader: str
+    loader_version: str
+
+    def safe_name(self):
+        return re.sub("[^a-zA-Z0-9]+", "-", self.name)

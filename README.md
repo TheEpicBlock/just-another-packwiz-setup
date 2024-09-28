@@ -11,3 +11,8 @@ Submissions are version locked using the `submission-lock.json` file. Run `scrip
 
 ## Compiling the final pack
 Run `scripts/assemble_packwiz.py`. It will output a full packwiz pack in `generated/pack/`.
+
+## Creating auto-updating packs
+Running `scripts/assemble_unsup.py` will create two zip files in the `generated` directory.
+The file without a suffix can be put loaded into prism launcher.
+The `-server.zip` file contains files needed to run a server (note, for NeoForge this zip will be quite barren).
