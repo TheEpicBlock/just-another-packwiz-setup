@@ -1,6 +1,7 @@
 import sys
 import re
 from zipfile import ZipFile
+import zipfile
 import io
 import json
 import urllib.request
@@ -39,7 +40,7 @@ def main():
 
     # Create prism zip
     prism = generated_dir / f"{packwiz_info.name}.zip"
-    with ZipFile(prism, "w") as output_zip:
+    with ZipFile(prism, "w", compression=zipfile.ZIP_DEFLATED) as output_zip:
         icon_key = packwiz_info.safe_name()
 
         with output_zip.open("instance.cfg", mode="w") as cfg:
