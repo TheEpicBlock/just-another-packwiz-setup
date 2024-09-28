@@ -28,8 +28,9 @@ def main():
     constants = common.jsonc_at_home(common.read_file(constants_file))
 
     # Download unsup jar
-    unsup_jar_file = generated_dir / f"unsup-{unsup_v}.jar"
+    unsup_jar_file = generated_dir / "cache" / f"unsup-{unsup_v}.jar"
     if not unsup_jar_file.exists():
+        unsup_jar_file.parent.mkdir(exist_ok=True, parents=True)
         print(f"Downloading unsup to {unsup_jar_file.relative_to(repo_root)}")
         urllib.request.urlretrieve(
             f"https://repo.sleeping.town/com/unascribed/unsup/{unsup_v}/unsup-{unsup_v}.jar",
