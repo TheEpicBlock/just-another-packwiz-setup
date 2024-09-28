@@ -61,7 +61,7 @@ def main():
 
         with output_zip.open(".minecraft/unsup.ini", mode="w") as unsupini:
             unsupini.write(create_unsup_ini(url).encode("utf-8"))
-    print(f"Wrote to {prism.relative_to(generated_dir)}")
+    print(f"Wrote to \"{prism.relative_to(generated_dir)}\"")
 
 # Creates a patch file which tells prism to
 # load unsup as an agent
