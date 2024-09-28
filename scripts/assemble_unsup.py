@@ -63,7 +63,7 @@ def main():
                 unsup_out.write(unsup_src.read())
 
         with output_zip.open(".minecraft/unsup.ini", mode="w") as unsupini:
-            unsupini.write(create_unsup_ini(url).encode("utf-8"))
+            unsupini.write(create_unsup_ini(url, constants).encode("utf-8"))
     print(f"Wrote to \"{prism.relative_to(generated_dir)}\"")
 
     server_zip = generated_dir / f"{packwiz_info.safe_name()}-server.zip"
@@ -79,7 +79,7 @@ def main():
                 unsup_out.write(unsup_src.read())
 
         with output_zip.open("unsup.ini", mode="w") as unsupini:
-            unsupini.write(create_unsup_ini(url).encode("utf-8"))
+            unsupini.write(create_unsup_ini(url, constants).encode("utf-8"))
     print(f"Wrote to \"{server_zip.relative_to(generated_dir)}\"")
 
 # Creates a patch file which tells prism to
@@ -144,8 +144,14 @@ def create_instance_config(packwiz_info, icon_name):
 
 # Creates the unsup config file, which tells unsup where
 # to download mods from
-def create_unsup_ini(url):
-    return unsup_ini_template.replace("{url}", url)
+def create_unsup_ini(url, constants):
+    colour_entries = []
+    for colour_key in unsup_colours:
+        colour_value = common.get_colour(constants, "_unsup_"+colour_key)
+        if colour_value:
+            colour_value = colour_value.replace("#", "")
+            colour_entries.append(f"{colour_key}={colour_value}")
+    return unsup_ini_template.replace("{url}", url).replace("{colours}", "\n".join(colour_entries))
 
 instance_cfg_template = """
 [General]
@@ -155,11 +161,24 @@ name={name}
 InstanceType=OneSix
 """.strip()
 
+unsup_colours = [
+    "background",
+    "title",
+    "subtitle",
+    "progress",
+    "progress_track",
+    "dialog",
+    "button",
+    "button_text",
+]
+
 unsup_ini_template = """
 version=1
 source_format=packwiz
 source={url}
 preset=minecraft
+[colors]
+{colours}
 """.strip()
 
 if __name__ == "__main__":

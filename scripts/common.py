@@ -81,6 +81,22 @@ def env(env: str, **kwargs):
     else:
         return kwargs.get("default")
 
+def get_colour(parsed_constants, key):
+    """Given a parsed constants.jsonc, retrieves a colour by key. Returns a value in the form of #FFFFFF"""
+    if not key.startswith("_"):
+        raise RuntimeError("Scripts should only depend on colour keys starting with an underscore")
+    def get_inner(k):
+        v = parsed_constants["colours"].get(k)
+        if v == None:
+            return None
+        elif v.startswith("."):
+            return get_inner(v[1:])
+        elif v.startswith("#"):
+            return v
+        else:
+            raise RuntimeError(f"Invalid colour definition for {k}. Should start with # or .")
+    return get_inner(key)
+
 class Ratelimiter:
     def __init__(self, time):
         # Time is given in seconds, convert to nanoseconds
