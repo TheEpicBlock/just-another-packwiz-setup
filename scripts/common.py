@@ -38,6 +38,9 @@ def get_repo_root():
     # is one directory up from this one
     return Path(os.path.join(os.path.dirname(__file__), '..'))
 
+def get_generated_dir():
+    return env("OUTPUT_DIR", default=(get_repo_root() / "generated"))
+
 def read_file(path):
     with open(path, "r") as f:
         return f.read()

@@ -10,4 +10,4 @@ The `pack/` directory contains the bulk of the pack. The files in here can be up
 Submissions are version locked using the `submission-lock.json` file. Run `scripts/pull_platform.py` to pull the latest versions from platform. This script can also be run via a manually-triggered github action.
 
 ## Compiling the final pack
-Run `scripts/assemble_packwiz.py`. It will output a full packwiz pack in `pack_generated`.
+Run `scripts/assemble_packwiz.py`. It will output a full packwiz pack in `generated/pack/`.

@@ -10,7 +10,7 @@ import common
 def main():
     repo_root = common.get_repo_root()
     java = common.check_java()
-    pack = repo_root / "pack_generated"
+    pack = common.get_generated_dir() / "pack"
     pack_toml_file = pack / "pack.toml"
     test_server_working = Path(common.env("WORK_DIR", default=(repo_root / "run")))
 

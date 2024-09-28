@@ -10,7 +10,7 @@ def main():
     repo_root = common.get_repo_root()
     submission_lock_file = repo_root / "submissions-lock.json"
     source_pack = repo_root / "pack"
-    dest_pack = repo_root / "pack_generated"
+    dest_pack = common.get_generated_dir() / "pack"
     exclude_file = repo_root / "platform.ignore"
     packwiz = common.check_packwiz()
 

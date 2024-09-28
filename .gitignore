@@ -1,6 +1,6 @@
 *.mrpack
-# Output of assemble_packwiz.py
-/pack_generated
+# Output of assemble scripts
+/generated
 # run_test.py will run a minecraft server here
 /run
 
