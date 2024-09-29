@@ -303,7 +303,8 @@ def run_server(exec_dir, java, loader, java_args, mc_args):
         env = {}
         if len(java_args) > 0:
             env["JDK_JAVA_OPTIONS"] = " ".join(java_args)
-        return subprocess.run([exec_dir / "run.sh"] + mc_args, env=env)
+        bash_file = "run.bat" if os.name == "nt" else "run.sh"
+        return subprocess.run([exec_dir / bash_file] + mc_args, env=env)
     else:
         raise RuntimeError(f"Unknown loader {loader}, can't run server")
 
