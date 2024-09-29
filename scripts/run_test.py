@@ -205,6 +205,11 @@ def main():
     # Setup mc-test-injector
     test_injector = cached_injector_dir / "McTestInjector.jar"
 
+    # Clear any lingering crash reports
+    crashreport_dir = exec_dir / "crash-reports"
+    if crashreport_dir.exists():
+        shutil.rmtree(crashreport_dir)
+
     # Run the server
     test_injector = Path(test_injector).resolve()
     java_args = [f"-javaagent:{test_injector}"]
@@ -218,7 +223,11 @@ def main():
         print(f"! Minecraft returned status code {result.returncode}")
         sys.exit(1)
     else:
-        print(f"Minecraft exited succesfully!")
+        print(f"Minecraft exited with status code 0")
+    
+    if crashreport_dir.exists() and len(list(crashreport_dir.iterdir())) > 0:
+        print(f"! Found files in the crash-reports directory. Marking test as failed")
+        sys.exit(2)
 
 def save_cache_state(state, file):
     # This is nice to store, for if we ever make breaking changes
