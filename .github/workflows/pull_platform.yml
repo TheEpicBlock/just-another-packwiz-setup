@@ -28,7 +28,7 @@ jobs:
 
       - name: Cache Packwiz
         id: cache-packwiz
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.PACKWIZ_DIR }}
           key: packwiz-${{ env.PACKWIZ_COMMIT }}

@@ -47,13 +47,18 @@ def main():
     print(f"Setting up a {loader} {loader_version} server for {mc_version}")
 
     # Various run dirs and files
-    cache_dir = test_server_working / "cache"
-    cache_state_file = cache_dir / "cache_state.json" # Info about the cache
-    cached_server_dir = cache_dir / "server" # Dir containing the server jar and libraries
-    cached_pack_dir = cache_dir / "pack" # Dir containing an instance of the pack
-    cached_packwiz_dir = cache_dir / "packwiz" # Dir containing packwiz installer and packwiz bootstrap
-    cached_injector_dir = cache_dir / "mc-test-injector" # Dir where mc-test-injector will be downloaded to
-    runtime_cache = cache_dir / "runtime" # Dirs which are known to contain caches maintained by the server (e.g .fabric)
+    # This is the cache for things that don't change very often
+    static_cache_dir = test_server_working / "static-cache"
+    cache_state_file = static_cache_dir / "cache_state.json" # Info about the cache
+    cached_server_dir = static_cache_dir / "server" # Dir containing the server jar and libraries
+    cached_packwiz_dir = static_cache_dir / "packwiz" # Dir containing packwiz installer and packwiz bootstrap
+    cached_injector_dir = static_cache_dir / "mc-test-injector" # Dir where mc-test-injector will be downloaded to
+
+    # This is the cache that does change quite often (eg, whenever the mods change)
+    # These are all managed by external programs, so they don't need a state file
+    dynamic_cache_dir = test_server_working / "dynamic-cache"
+    cached_pack_dir = dynamic_cache_dir / "pack" # Dir containing an instance of the pack
+    runtime_cache = dynamic_cache_dir / "runtime" # Dirs which are known to contain caches maintained by the server (e.g .fabric)
     exec_dir = test_server_working / "exec" # Where the server will end up running
 
     cached_server_dir.mkdir(exist_ok=True, parents=True)
@@ -63,7 +68,18 @@ def main():
     runtime_cache.mkdir(exist_ok=True, parents=True)
     exec_dir.mkdir(exist_ok=True, parents=True)
 
-    # Read the file describing the state of the cache
+    # Generate the desired cache state so we can compare it
+    desired_cache_state = {
+        "server": common.hash([mc_version, loader, loader_version]),
+        "pw_bootstrap": PACKWIZ_BOOTSTRAP_VERSION,
+        "mc-test-injector": MC_TEST_INJECTOR_VERSION
+    }
+    if common.env("GENERATE_DESIRED_CACHE_STATE_AND_EXIT") == "true":
+        save_cache_state(desired_cache_state, test_server_working / "desired_cache_state_for_static_cache.json")
+        sys.exit()
+        return
+
+    # Read the file describing the state of the current cache
     if cache_state_file.exists():
         try:
             cached_state = json.loads(common.read_file(cache_state_file))
@@ -74,7 +90,7 @@ def main():
         cached_state = {}
     
     # Make sure we have an install of the server files
-    server_hash = common.hash([mc_version, loader, loader_version])
+    server_hash = desired_cache_state["server"]
     if server_hash != cached_state.get("server"):
         print("Existing cached server files are stale. Deleting it.")
         shutil.rmtree(cached_server_dir)
@@ -99,7 +115,7 @@ def main():
         print(f"Cache hit: a {mc_version} server using {loader} {loader_version} is in the cache")
     
     # Make sure we have an install of packwiz
-    bootstrap_version = PACKWIZ_BOOTSTRAP_VERSION
+    bootstrap_version = desired_cache_state["pw_bootstrap"]
     if bootstrap_version != cached_state.get("pw_bootstrap"):
         print("Installed packwiz bootstrap is stale. Deleting it.")
         shutil.rmtree(cached_packwiz_dir)
@@ -121,7 +137,7 @@ def main():
         print(f"Cache hit: packwiz bootstrap {bootstrap_version} is in the cache")
 
     # Make sure we have an install of mc test injector
-    injector_version = MC_TEST_INJECTOR_VERSION
+    injector_version = desired_cache_state["mc-test-injector"]
     if injector_version != cached_state.get("mc-test-injector"):
         print("Installed mc-test-injector is stale. Deleting it.")
         shutil.rmtree(cached_injector_dir)
@@ -205,7 +221,7 @@ def save_cache_state(state, file):
     # This is nice to store, for if we ever make breaking changes
     state["script_version"] = 1
     with open(file, "w") as f:
-        f.write(json.dumps(state))
+        f.write(json.dumps(state, sort_keys=True))
 
 def setup_server(java, mc_version, loader, loader_version, directory):
     """Install the server files and libraries for a given version. The given directory should be empty"""
