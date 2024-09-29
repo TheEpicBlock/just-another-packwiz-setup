@@ -73,14 +73,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            run/static-cache
+            run/cache-dynamic
           key: test-run-static-cache-${{ hashFiles('run/desired_cache_state_for_static_cache.json') }} # Try and get the desired state
           restore-keys: test-run-static-cache- # But fall back if needed
       - name: Cache test-runner (dynamic cache)
         uses: actions/cache@v4
         with:
           path: |
-            run/dynamic-cache
+            run/cache-dynamic
           key: test-run-dynamic-cache-${{ hashFiles('generated/pack/pack.toml') }} # pack.toml contains hashes for all other files
           restore-keys: test-run-dynamic-cache-
 

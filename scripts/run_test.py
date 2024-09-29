@@ -48,7 +48,7 @@ def main():
 
     # Various run dirs and files
     # This is the cache for things that don't change very often
-    static_cache_dir = test_server_working / "static-cache"
+    static_cache_dir = test_server_working / "cache-static"
     cache_state_file = static_cache_dir / "cache_state.json" # Info about the cache
     cached_server_dir = static_cache_dir / "server" # Dir containing the server jar and libraries
     cached_packwiz_dir = static_cache_dir / "packwiz" # Dir containing packwiz installer and packwiz bootstrap
@@ -56,7 +56,7 @@ def main():
 
     # This is the cache that does change quite often (eg, whenever the mods change)
     # These are all managed by external programs, so they don't need a state file
-    dynamic_cache_dir = test_server_working / "dynamic-cache"
+    dynamic_cache_dir = test_server_working / "cache-dynamic"
     cached_pack_dir = dynamic_cache_dir / "pack" # Dir containing an instance of the pack
     runtime_cache = dynamic_cache_dir / "runtime" # Dirs which are known to contain caches maintained by the server (e.g .fabric)
     exec_dir = test_server_working / "exec" # Where the server will end up running
