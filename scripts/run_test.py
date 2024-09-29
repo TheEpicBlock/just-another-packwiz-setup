@@ -53,14 +53,14 @@ def main():
     cached_pack_dir = cache_dir / "pack" # Dir containing an instance of the pack
     cached_packwiz_dir = cache_dir / "packwiz" # Dir containing packwiz installer and packwiz bootstrap
     cached_injector_dir = cache_dir / "mc-test-injector" # Dir where mc-test-injector will be downloaded to
-    loader_cache = cache_dir / "loader" # Dir where the loader can dump files that can be cached (eg .fabric)
+    runtime_cache = cache_dir / "runtime" # Dirs which are known to contain caches maintained by the server (e.g .fabric)
     exec_dir = test_server_working / "exec" # Where the server will end up running
 
     cached_server_dir.mkdir(exist_ok=True, parents=True)
     cached_pack_dir.mkdir(exist_ok=True, parents=True)
     cached_packwiz_dir.mkdir(exist_ok=True, parents=True)
     cached_injector_dir.mkdir(exist_ok=True, parents=True)
-    loader_cache.mkdir(exist_ok=True, parents=True)
+    runtime_cache.mkdir(exist_ok=True, parents=True)
     exec_dir.mkdir(exist_ok=True, parents=True)
 
     # Read the file describing the state of the cache
@@ -78,14 +78,14 @@ def main():
     if server_hash != cached_state.get("server"):
         print("Existing cached server files are stale. Deleting it.")
         shutil.rmtree(cached_server_dir)
-        shutil.rmtree(loader_cache)
+        shutil.rmtree(runtime_cache)
         cached_state["server"] = None
         save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
     elif err := validate_server(loader, cached_server_dir):
         print(f"{Ansi.WARN}Something is wrong with the cached server:{Ansi.RESET} {err}")
         print("Removing cached server files")
         shutil.rmtree(cached_server_dir)
-        shutil.rmtree(loader_cache)
+        shutil.rmtree(runtime_cache)
         cached_state["server"] = None
         save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
     
@@ -171,9 +171,13 @@ def main():
             dest.parent.mkdir(exist_ok=True, parents=True)
             os.symlink(f, dest, target_is_directory=False)
     
-    dotfabric = loader_cache / ".fabric"
+    dotfabric = runtime_cache / ".fabric"
     dotfabric.mkdir(exist_ok=True, parents=True)
     os.symlink(dotfabric, exec_dir / ".fabric", target_is_directory=True)
+
+    dotconnector = runtime_cache / ".connector"
+    dotconnector.mkdir(exist_ok=True, parents=True)
+    os.symlink(dotconnector, exec_dir / "mods" / ".connector", target_is_directory=True)
     
     # Accept eula
     eula = exec_dir / "eula.txt"
