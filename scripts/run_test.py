@@ -153,6 +153,7 @@ def main():
         # Ensures bootstrap installs packwiz to `packwiz_dir` for caching reasons
         "--bootstrap-main-jar", cached_packwiz_dir / "packwiz-installer.jar",
         "--pack-folder", cached_pack_dir,
+        "-s", "server", # Tell packwiz to install only server files
         f"file://{pack_toml_file}"
     ])
     
