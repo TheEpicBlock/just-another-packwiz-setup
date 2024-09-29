@@ -65,7 +65,7 @@ jobs:
         run: python scripts/assemble_packwiz.py
 
       # Setup test-runner cache
-      - name: Test pack
+      - name: Generate cache key
         run: python scripts/run_test.py
         env:
           GENERATE_DESIRED_CACHE_STATE_AND_EXIT: true
