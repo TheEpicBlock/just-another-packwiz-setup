@@ -162,8 +162,14 @@ def main():
     exec_dir.mkdir(parents=True)
     for f in cached_server_dir.iterdir():
         os.symlink(f, exec_dir / (f.relative_to(cached_server_dir)), target_is_directory=f.is_dir())
-    for f in cached_pack_dir.iterdir():
-        os.symlink(f, exec_dir / (f.relative_to(cached_pack_dir)), target_is_directory=f.is_dir())
+    for f in cached_pack_dir.rglob("*"):
+        if f.is_file():
+            # We do *not* symlink entire directories. Instead we symlink individual files.
+            # This is because NeoForge doesn't like it.
+            # Also, it helps prevents stuff from accidentally modifying our cache, so that's nice
+            dest = exec_dir / (f.relative_to(cached_pack_dir))
+            dest.parent.mkdir(exist_ok=True, parents=True)
+            os.symlink(f, dest, target_is_directory=False)
     
     dotfabric = loader_cache / ".fabric"
     dotfabric.mkdir(exist_ok=True, parents=True)
