@@ -15,7 +15,7 @@ import assemble_packwiz
 
 FABRIC_INSTALLER_VERSION = "1.0.1"
 PACKWIZ_BOOTSTRAP_VERSION = "v0.0.3" # https://github.com/packwiz/packwiz-installer-bootstrap
-MC_TEST_INJECTOR_VERSION = "v0.0.1" # https://github.com/TheEpicBlock/mc-test-injector
+MC_TEST_INJECTOR_VERSION = "v1.0.0" # https://github.com/TheEpicBlock/mc-test-injector
 
 def main():
     repo_root = common.get_repo_root()
