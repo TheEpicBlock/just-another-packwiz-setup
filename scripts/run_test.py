@@ -7,9 +7,11 @@ import sys
 import shutil
 import json
 import tempfile
+import shlex
 
 import common
 from common import Ansi
+import assemble_packwiz
 
 FABRIC_INSTALLER_VERSION = "1.0.1"
 PACKWIZ_BOOTSTRAP_VERSION = "v0.0.3" # https://github.com/packwiz/packwiz-installer-bootstrap
@@ -22,9 +24,12 @@ def main():
     pack_toml_file = pack / "pack.toml"
     test_server_working = Path(common.env("WORK_DIR", default=(repo_root / "run")))
 
+    # Run the pack assembly script
+    assemble_packwiz.main()
+
     if not pack.exists():
         print(f"{pack} does not exist")
-        raise Exception("Error, couldn't find pack. Please ensure that it was created (run assemble_packwiz.py)")
+        raise Exception("Error, couldn't find pack. assemble_packwiz.py might've failed")
     if not pack_toml_file.exists():
         print(f"{pack_toml_file} does not exist")
         raise Exception("Pack is not a valid packwiz pack (pack.toml) doesn't exist")
@@ -56,6 +61,7 @@ def main():
     cached_packwiz_dir.mkdir(exist_ok=True, parents=True)
     cached_injector_dir.mkdir(exist_ok=True, parents=True)
     loader_cache.mkdir(exist_ok=True, parents=True)
+    exec_dir.mkdir(exist_ok=True, parents=True)
 
     # Read the file describing the state of the cache
     if cache_state_file.exists():
@@ -72,16 +78,18 @@ def main():
     if server_hash != cached_state.get("server"):
         print("Existing cached server files are stale. Deleting it.")
         shutil.rmtree(cached_server_dir)
+        shutil.rmtree(loader_cache)
         cached_state["server"] = None
         save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
-
-    if err := validate_server(loader, cached_server_dir):
+    elif err := validate_server(loader, cached_server_dir):
         print(f"{Ansi.WARN}Something is wrong with the cached server:{Ansi.RESET} {err}")
         print("Removing cached server files")
         shutil.rmtree(cached_server_dir)
+        shutil.rmtree(loader_cache)
         cached_state["server"] = None
         save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
-    elif cached_state.get("server") == None:
+    
+    if cached_state.get("server") == None:
         # Set up new server files
         setup_server(java, mc_version, loader, loader_version, cached_server_dir)
         # Update cache state to reflect the newly installed server files
@@ -171,19 +179,13 @@ def main():
     test_injector = cached_injector_dir / "McTestInjector.jar"
 
     # Run the server
-    os.chdir(exec_dir)
-    server_run_cmd = [java]
-    
     test_injector = Path(test_injector).resolve()
-    server_run_cmd += [f"-javaagent:{test_injector}"]
-    
-    if loader == "fabric":
-        server_run_cmd += ["-jar", exec_dir / "fabric-server-launch.jar"]
-    else:
-        pass # TODO
-    server_run_cmd += ["--nogui"]
-    
-    result = subprocess.run(server_run_cmd, timeout=120)
+    java_args = [f"-javaagent:{test_injector}"]
+    mc_args = ["--nogui"]
+
+    os.chdir(exec_dir)
+    result = run_server(exec_dir, java, loader, java_args, mc_args)
+
     if result.returncode != 0:
         print(f"! Minecraft returned status code {result.returncode}")
         sys.exit(1)
@@ -225,6 +227,9 @@ def setup_server(java, mc_version, loader, loader_version, directory):
 def validate_server(loader, server_dir):
     if loader == "fabric" and not (server_dir / "fabric-server-launch.jar").exists():
         return "Fabric servers should have a fabric-server-launch.jar"
+    if loader == "neoforge" and not (server_dir / "user_jvm_args.txt").exists():
+        # This is the behaviour as of NeoForge 21.1.64
+        return "NeoForge should set up a user_jvm_args.txt file. Did the way neoforge servers are set up change?"
     if not (server_dir / "libraries").exists():
         return "The server directory should have a libraries folder"
     return None
@@ -251,6 +256,17 @@ def validate_test_injector(packwiz_dir):
     if not (packwiz_dir / "McTestInjector.jar").exists():
         return "McTestInjector.jar should exist"
     return None
+
+def run_server(exec_dir, java, loader, java_args, mc_args):
+    if loader == "fabric":
+        return subprocess.run([java] + java_args + ["-jar", exec_dir / "fabric-server-launch.jar"] + mc_args)
+    elif loader == "neoforge":
+        env = {}
+        if len(java_args) > 0:
+            env["JDK_JAVA_OPTIONS"] = " ".join(java_args)
+        return subprocess.run([exec_dir / "run.sh"] + mc_args, env=env)
+    else:
+        raise RuntimeError(f"Unknown loader {loader}, can't run server")
 
 if __name__ == "__main__":
     main()
