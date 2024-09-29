@@ -210,12 +210,15 @@ def main():
     java_args = [f"-javaagent:{test_injector}"]
     mc_args = ["--nogui"]
 
+    sys.stdout.flush() # Prevents python's output from appearing after mc's
     os.chdir(exec_dir)
     result = run_server(exec_dir, java, loader, java_args, mc_args)
 
     if result.returncode != 0:
         print(f"! Minecraft returned status code {result.returncode}")
         sys.exit(1)
+    else:
+        print(f"Minecraft exited succesfully!")
 
 def save_cache_state(state, file):
     # This is nice to store, for if we ever make breaking changes
