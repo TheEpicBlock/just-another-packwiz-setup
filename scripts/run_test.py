@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
-import tomllib
 import os
 import urllib.request
 import subprocess
 from pathlib import Path
 import sys
+import shutil
+import json
+import tempfile
 
 import common
+from common import Ansi
+
+FABRIC_INSTALLER_VERSION = "1.0.1"
+PACKWIZ_BOOTSTRAP_VERSION = "v0.0.3" # https://github.com/packwiz/packwiz-installer-bootstrap
+MC_TEST_INJECTOR_VERSION = "v0.0.1" # https://github.com/TheEpicBlock/mc-test-injector
 
 def main():
     repo_root = common.get_repo_root()
@@ -24,115 +31,226 @@ def main():
     
     # Parse pack information
 
-    pack_toml = tomllib.loads(common.read_file(pack_toml_file))
+    pack_info = common.parse_packwiz(pack_toml_file)
 
-    print("Testing modpack "+str(pack_toml.get("name"))+" "+str(pack_toml.get("version")))
+    print(f"Testing modpack {pack_info.name} {pack_info.pack_version}")
 
-    version_data = pack_toml["versions"]
-    if not "minecraft" in version_data:
-        raise Exception("pack.toml doesn't define a minecraft version")
-            
-    mc_version = version_data["minecraft"]
+    mc_version = pack_info.minecraft_version
+    loader = pack_info.loader
+    loader_version = pack_info.loader_version
 
-    # detect loader
-    supported_loaders = ["fabric", "neoforge"]
+    print(f"Setting up a {loader} {loader_version} server for {mc_version}")
 
-    for v in version_data:
-        if v != "minecraft" and v not in supported_loaders:
-            raise Exception(f"pack is using unsupported software: {v}")
+    # Various run dirs and files
+    cache_dir = test_server_working / "cache"
+    cache_state_file = cache_dir / "cache_state.json" # Info about the cache
+    cached_server_dir = cache_dir / "server" # Dir containing the server jar and libraries
+    cached_pack_dir = cache_dir / "pack" # Dir containing an instance of the pack
+    cached_packwiz_dir = cache_dir / "packwiz" # Dir containing packwiz installer and packwiz bootstrap
+    cached_injector_dir = cache_dir / "mc-test-injector" # Dir where mc-test-injector will be downloaded to
+    loader_cache = cache_dir / "loader" # Dir where the loader can dump files that can be cached (eg .fabric)
+    exec_dir = test_server_working / "exec" # Where the server will end up running
 
-    loaders = {k:v for k, v in version_data.items() if k in supported_loaders}
-    if len(loaders) >= 2:
-        raise Exception("pack is using multiple loaders, unsure which one to use: ["+", ".join(loaders.keys())+"]")
-    if len(loaders) == 0:
-        raise Exception("pack does not seem to define a loader")
-    
-    loader = list(loaders.keys())[0]
-    loader_version = list(loaders.values())[0]
+    cached_server_dir.mkdir(exist_ok=True, parents=True)
+    cached_pack_dir.mkdir(exist_ok=True, parents=True)
+    cached_packwiz_dir.mkdir(exist_ok=True, parents=True)
+    cached_injector_dir.mkdir(exist_ok=True, parents=True)
+    loader_cache.mkdir(exist_ok=True, parents=True)
 
-    print(f"Setting up a {loader} ({loader_version}) server")
-
-    # Set up modloader
-    server_hash = common.hash([mc_version, loader, loader_version])
-    minecraft_dir = test_server_working / "loader" / server_hash
-    game_dir = test_server_working / "game"
-    minecraft_cached = minecraft_dir.exists()
-    server_jar = None
-    if loader == "fabric":
-        server_jar = minecraft_dir / "server.jar"
-        if not minecraft_cached:
-            print("Download fabric server jar")
-            minecraft_dir.mkdir(exist_ok=True, parents=True)
-            fabric_installer = "1.0.1"
-            urllib.request.urlretrieve(f"https://meta.fabricmc.net/v2/versions/loader/{mc_version}/{loader_version}/{fabric_installer}/server/jar", server_jar)
-    elif loader == "neoforge":
-        installer_file = minecraft_dir / f"installer.jar"
-        if not minecraft_cached:
-            print("! Running neoforge installer")
-            minecraft_dir.mkdir(exist_ok=True, parents=True)
-            urllib.request.urlretrieve(f"https://maven.neoforged.net/releases/net/neoforged/neoforge/{loader_version}/neoforge-{loader_version}-installer.jar", installer_file)
-            subprocess.run(["java", "-jar", installer_file, "--install-server", minecraft_dir])
-            print("! Neoforge installer ran")
-        # TODO
-        # server_run_cmd = [minecraft_dir / ("run.bat" if os.name == "nt" else "run.sh")]
+    # Read the file describing the state of the cache
+    if cache_state_file.exists():
+        try:
+            cached_state = json.loads(common.read_file(cache_state_file))
+        except Exception:
+            print(f"Failed to load cache state, ignoring it")
+            cached_state = {}
     else:
-        raise RuntimeError(f"{loader} not handled")
+        cached_state = {}
     
-    # Accept eula
-    if loader == "fabric":
-        eula = game_dir / "eula.txt"
-    elif loader == "neoforge":
-        eula = minecraft_dir / "eula.txt"
-    if not eula.exists():
-        eula.parent.mkdir(exist_ok=True, parents=True)
-        eula.touch()
-        with open(eula, "w") as f:
-            f.write("eula=true")
+    # Make sure we have an install of the server files
+    server_hash = common.hash([mc_version, loader, loader_version])
+    if server_hash != cached_state.get("server"):
+        print("Existing cached server files are stale. Deleting it.")
+        shutil.rmtree(cached_server_dir)
+        cached_state["server"] = None
+        save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
 
-    # Set up the packwiz and game dir
-    packwiz_dir = test_server_working / "packwiz-installer"
-    packwiz_bootstrap = packwiz_dir / "packwiz-bootstrap.jar"
-    if not packwiz_bootstrap.exists():
-        print("Installing packwiz bootstrap")
-        bootstrap_version = common.env("PACKWIZ_BOOTSTRAP_VERSION", default="v0.0.3")
-        packwiz_dir.mkdir(exist_ok=True)
-        urllib.request.urlretrieve(f"https://github.com/packwiz/packwiz-installer-bootstrap/releases/download/{bootstrap_version}/packwiz-installer-bootstrap.jar", packwiz_bootstrap)
+    if err := validate_server(loader, cached_server_dir):
+        print(f"{Ansi.WARN}Something is wrong with the cached server:{Ansi.RESET} {err}")
+        print("Removing cached server files")
+        shutil.rmtree(cached_server_dir)
+        cached_state["server"] = None
+        save_cache_state(cached_state, cache_state_file) # Don't forget to immediatly save any changes to the state
+    elif cached_state.get("server") == None:
+        # Set up new server files
+        setup_server(java, mc_version, loader, loader_version, cached_server_dir)
+        # Update cache state to reflect the newly installed server files
+        cached_state["server"] = server_hash
+        save_cache_state(cached_state, cache_state_file)
+    else:
+        print(f"Cache hit: a {mc_version} server using {loader} {loader_version} is in the cache")
+    
+    # Make sure we have an install of packwiz
+    bootstrap_version = PACKWIZ_BOOTSTRAP_VERSION
+    if bootstrap_version != cached_state.get("pw_bootstrap"):
+        print("Installed packwiz bootstrap is stale. Deleting it.")
+        shutil.rmtree(cached_packwiz_dir)
+        cached_state["pw_bootstrap"] = None
+        save_cache_state(cached_state, cache_state_file)
+    elif err := validate_packwiz(cached_packwiz_dir):
+        print(f"{Ansi.WARN}Something is wrong with the cached packwiz installer or bootstrap:{Ansi.RESET} {err}")
+        shutil.rmtree(cached_packwiz_dir)
+        cached_state["pw_bootstrap"] = None
+        save_cache_state(cached_state, cache_state_file)
+
+    if cached_state.get("pw_bootstrap") == None:
+        # Set up new server files
+        setup_packwiz_bootstrap(java, bootstrap_version, cached_packwiz_dir)
+        # Update cache state to reflect the newly installed packwiz
+        cached_state["pw_bootstrap"] = bootstrap_version
+        save_cache_state(cached_state, cache_state_file)
+    else:
+        print(f"Cache hit: packwiz bootstrap {bootstrap_version} is in the cache")
+
+    # Make sure we have an install of mc test injector
+    injector_version = MC_TEST_INJECTOR_VERSION
+    if injector_version != cached_state.get("mc-test-injector"):
+        print("Installed mc-test-injector is stale. Deleting it.")
+        shutil.rmtree(cached_injector_dir)
+        cached_state["mc-test-injector"] = None
+        save_cache_state(cached_state, cache_state_file)
+    elif err := validate_test_injector(cached_injector_dir):
+        print(f"{Ansi.WARN}Something is wrong with the cached mc-test-injector:{Ansi.RESET} {err}")
+        shutil.rmtree(cached_injector_dir)
+        cached_state["mc-test-injector"] = None
+        save_cache_state(cached_state, cache_state_file)
+
+    if cached_state.get("mc-test-injector") == None:
+        # Set up new server files
+        setup_mc_test_injector(java, injector_version, cached_injector_dir)
+        # Update cache state to reflect the newly installed mc-test-injector
+        cached_state["mc-test-injector"] = injector_version
+        save_cache_state(cached_state, cache_state_file)
+    else:
+        print(f"Cache hit: mc-test-injector {injector_version} is in the cache")
+
+    # Update the pack dir;
+    # it should have all the files in the pack downloaded
+    # packwiz should take care of keeping this synchronized
+    packwiz_bootstrap = cached_packwiz_dir / "packwiz_bootstrap.jar"
+    print(f"Invoking packwiz installer to synchronize {cached_pack_dir.relative_to(repo_root)}")
     subprocess.run([
         java, "-jar", packwiz_bootstrap,
         "--no-gui",
         # Ensures bootstrap installs packwiz to `packwiz_dir` for caching reasons
-        "--bootstrap-main-jar", packwiz_dir / "packwiz-installer.jar",
-        "--pack-folder", game_dir,
+        "--bootstrap-main-jar", cached_packwiz_dir / "packwiz-installer.jar",
+        "--pack-folder", cached_pack_dir,
         f"file://{pack_toml_file}"
     ])
+    
+    # Symlink the cached server files and cached pack files
+    shutil.rmtree(exec_dir)
+    exec_dir.mkdir(parents=True)
+    for f in cached_server_dir.iterdir():
+        os.symlink(f, exec_dir / (f.relative_to(cached_server_dir)), target_is_directory=f.is_dir())
+    for f in cached_pack_dir.iterdir():
+        os.symlink(f, exec_dir / (f.relative_to(cached_pack_dir)), target_is_directory=f.is_dir())
+    
+    dotfabric = loader_cache / ".fabric"
+    dotfabric.mkdir(exist_ok=True, parents=True)
+    os.symlink(dotfabric, exec_dir / ".fabric", target_is_directory=True)
+    
+    # Accept eula
+    eula = exec_dir / "eula.txt"
+    if not eula.exists():
+        eula.touch()
+        with open(eula, "w") as f:
+            f.write("eula=true")
 
-    # Setup the testing java agent
-    agent_jar = common.env("AGENT")
+    # Setup mc-test-injector
+    test_injector = cached_injector_dir / "McTestInjector.jar"
 
     # Run the server
-    worlds_dir = test_server_working / "worlds"
-    worlds_dir.mkdir(exist_ok=True)
-    
+    os.chdir(exec_dir)
     server_run_cmd = [java]
-    if agent_jar:
-        agent_jar = Path(agent_jar).resolve()
-        server_run_cmd += [f"-javaagent:{agent_jar}"]
-    server_run_cmd += ["-jar", server_jar]
-    server_run_cmd += ["--nogui"]
-    server_run_cmd += ["--universe", worlds_dir]
+    
+    test_injector = Path(test_injector).resolve()
+    server_run_cmd += [f"-javaagent:{test_injector}"]
     
     if loader == "fabric":
-        # Will look for the mods here, but it'll also dump libraries here unfortunately
-        os.chdir(game_dir)
-    elif loader == "neoforge":
-        server_run_cmd += ["--gameDir", game_dir]
-        os.chdir(minecraft_dir) # Won't launch unless these match
-    print(f"Running minecraft with {server_run_cmd}")
+        server_run_cmd += ["-jar", exec_dir / "fabric-server-launch.jar"]
+    else:
+        pass # TODO
+    server_run_cmd += ["--nogui"]
     
     result = subprocess.run(server_run_cmd, timeout=120)
     if result.returncode != 0:
         print(f"! Minecraft returned status code {result.returncode}")
         sys.exit(1)
+
+def save_cache_state(state, file):
+    # This is nice to store, for if we ever make breaking changes
+    state["script_version"] = 1
+    with open(file, "w") as f:
+        f.write(json.dumps(state))
+
+def setup_server(java, mc_version, loader, loader_version, directory):
+    """Install the server files and libraries for a given version. The given directory should be empty"""
+    directory.mkdir(exist_ok=True, parents=True)
+    with tempfile.TemporaryDirectory() as installer_tmp:
+        installer = Path(installer_tmp) / "installer.jar"
+
+        # Download and run the appropriate installer
+        if loader == "fabric":
+            print(f"Downloading {loader}-installer {FABRIC_INSTALLER_VERSION} to {installer}")
+            urllib.request.urlretrieve(f"https://maven.fabricmc.net/net/fabricmc/fabric-installer/{FABRIC_INSTALLER_VERSION}/fabric-installer-{FABRIC_INSTALLER_VERSION}.jar", installer)
+            subprocess.run([java, "-jar", installer,
+                "server",
+                "-dir", directory,
+                "-mcversion", mc_version,
+                "-loader", loader_version,
+                "-downloadMinecraft" # Makes fabric install the server jar as well
+            ])
+        elif loader == "neoforge":
+            print(f"Downloading {loader} installer for {loader_version} to {installer}")
+            urllib.request.urlretrieve(f"https://maven.neoforged.net/releases/net/neoforged/neoforge/{loader_version}/neoforge-{loader_version}-installer.jar", installer)
+            # NeoForge installers are always meant for a certain neoforge and minecraft version
+            subprocess.run([java, "-jar", installer, "--install-server", directory])
+        else:
+            raise RuntimeError(f"Unknown loader {loader}, can't install server files")
+    # Validate result
+    if err := validate_server(loader, directory):
+        raise RuntimeError(f"Failed to install server files: {err}")
+
+def validate_server(loader, server_dir):
+    if loader == "fabric" and not (server_dir / "fabric-server-launch.jar").exists():
+        return "Fabric servers should have a fabric-server-launch.jar"
+    if not (server_dir / "libraries").exists():
+        return "The server directory should have a libraries folder"
+    return None
+
+def setup_packwiz_bootstrap(java, bootstrap_version, directory):
+    print(f"Downloading packwiz bootstrap {bootstrap_version}")
+    directory.mkdir(exist_ok=True, parents=True)
+    urllib.request.urlretrieve(f"https://github.com/packwiz/packwiz-installer-bootstrap/releases/download/{bootstrap_version}/packwiz-installer-bootstrap.jar", directory / "packwiz_bootstrap.jar")
+
+def validate_packwiz(packwiz_dir):
+    if not (packwiz_dir / "packwiz_bootstrap.jar").exists():
+        return "packwiz_bootstrap.jar should exist"
+    return None
+
+def setup_mc_test_injector(java, injector_version, directory):
+    print(f"Downloading mc-test-injector {injector_version}")
+    directory.mkdir(exist_ok=True, parents=True)
+    unprefixed = injector_version
+    if unprefixed.startswith("v"):
+        unprefixed = unprefixed[1:]
+    urllib.request.urlretrieve(f"https://github.com/TheEpicBlock/mc-test-injector/releases/download/{injector_version}/McTestInjector-{unprefixed}.jar", directory / "McTestInjector.jar")
+
+def validate_test_injector(packwiz_dir):
+    if not (packwiz_dir / "McTestInjector.jar").exists():
+        return "McTestInjector.jar should exist"
+    return None
 
 if __name__ == "__main__":
     main()
