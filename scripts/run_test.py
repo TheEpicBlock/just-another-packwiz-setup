@@ -302,8 +302,18 @@ def run_server(exec_dir, java, loader, java_args, mc_args, **kwargs) -> subproce
         return subprocess.run([java] + java_args + ["-jar", exec_dir / "fabric-server-launch.jar"] + mc_args, **kwargs)
     elif loader == "neoforge":
         env = {}
+        # Pass the jdk options as an env variable
         if len(java_args) > 0:
             env["JDK_JAVA_OPTIONS"] = " ".join(java_args)
+        
+        # Set env to use the right java
+        path = os.env["PATH"] if "PATH" in os.env else ""
+        if os.name == "nt":
+            env["PATH"] = f"{java.parent};{path}"
+        else:
+            env["PATH"] = f"{java.parent}:{path}"
+        
+        # Run the bash file
         bash_file = "run.bat" if os.name == "nt" else "run.sh"
         return subprocess.run([exec_dir / bash_file] + mc_args, env=env, **kwargs)
     else:
