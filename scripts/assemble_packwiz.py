@@ -6,6 +6,8 @@ import os
 import subprocess
 import re
 import tomli_w
+from typing import TypedDict
+from typing import Any
 
 def main():
     repo_root = common.get_repo_root()
@@ -50,3 +52,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# For type hints
+type SubmissionLockfileFormat = dict[str, SubmissionLockfileEntry]
+
+class SubmissionLockfileEntry(TypedDict):
+    url: str 
+    files: dict[str, Any]

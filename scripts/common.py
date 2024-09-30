@@ -11,6 +11,7 @@ from typing import TypedDict
 from typing import Callable
 from typing import Any
 from typing_extensions import Unpack
+from typing import overload
 
 class Ansi:
     BOLD = '\033[1m'
@@ -82,14 +83,20 @@ def hash(values: list[str]) -> str:
         hasher.update(value.encode("UTF-8"))
     return hasher.hexdigest()
 
-def env[T](env: str, *, default: T) -> T | str:
+# overloads for proper type checking
+@overload
+def env(env: str, *, default: None = None) -> None | str: ...
+@overload
+def env[T](env: str, *, default: T) -> T | str: ...
+
+def env[T](env: str, *, default: Any = None) -> Any | str:
     if env in os.environ:
         return os.environ[env]
     else:
         return default
 
 class Constants(TypedDict):
-    default: dict[str, str]
+    colours: dict[str, str]
 
 def get_colour(parsed_constants: Constants, key: str) -> str:
     """Given a parsed constants.jsonc, retrieves a colour by key. Returns a value in the form of #FFFFFF"""
@@ -97,7 +104,7 @@ def get_colour(parsed_constants: Constants, key: str) -> str:
         raise RuntimeError("Scripts should only depend on colour keys starting with an underscore")
     def get_inner(k):
         v = parsed_constants["colours"].get(k)
-        if v == None:
+        if v is None:
             return None
         elif v.startswith("."):
             return get_inner(v[1:])
@@ -111,7 +118,7 @@ class Ratelimiter:
     def __init__(self, time: float):
         # Time is given in seconds, convert to nanoseconds
         self.wait_time = time
-        self.last_action = 0
+        self.last_action: float = 0
     
     def limit(self):
         time.sleep(max(0, self.wait_time - (time.time() - self.last_action)))
@@ -157,5 +164,6 @@ class PackwizPackInfo:
     loader: str
     loader_version: str
 
-    def safe_name(self):
+    def safe_name(self) -> str:
+        assert self.name is not None
         return re.sub("[^a-zA-Z0-9]+", "-", self.name)

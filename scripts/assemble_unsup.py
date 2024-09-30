@@ -6,6 +6,7 @@ import zipfile
 import io
 import json
 import urllib.request
+from typing import Any
 
 from common import Ansi
 import common
@@ -17,7 +18,7 @@ def main():
     generated_dir = common.get_generated_dir()
 
     url = common.env("URL")
-    if url == None:
+    if url is None:
         print(f"{Ansi.ERROR}Please set the URL environment variable to the public url for this pack{Ansi.RESET}")
         sys.exit(1)
     if not url.endswith("pack.toml"):
@@ -102,7 +103,7 @@ def create_unsup_patch(unsup_version):
 # Creates the mmc-pack.json file, which stores "dependency" information for prism/multimc
 # The most important thing is that it defines the minecraft version and launcher used
 def create_mmc_meta(packwiz_info, unsup_version):
-    meta = {}
+    meta: Any = {}
     meta["formatVersion"] = 1
     
     components = []
@@ -144,7 +145,7 @@ def create_instance_config(packwiz_info, icon_name):
 
 # Creates the unsup config file, which tells unsup where
 # to download mods from
-def create_unsup_ini(url, constants):
+def create_unsup_ini(url: str, constants):
     colour_entries = []
     for colour_key in unsup_colours:
         colour_value = common.get_colour(constants, "_unsup_"+colour_key)

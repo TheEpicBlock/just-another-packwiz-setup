@@ -199,8 +199,8 @@ def main():
     eula = exec_dir / "eula.txt"
     if not eula.exists():
         eula.touch()
-        with open(eula, "w") as f:
-            f.write("eula=true")
+        with open(eula, "w") as file:
+            file.write("eula=true")
 
     # Setup mc-test-injector
     test_injector = cached_injector_dir / "McTestInjector.jar"
