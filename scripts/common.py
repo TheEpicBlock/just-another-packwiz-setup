@@ -7,6 +7,10 @@ import hashlib
 import tomllib
 from dataclasses import dataclass
 import re
+from typing import TypedDict
+from typing import Callable
+from typing import Any
+from typing_extensions import Unpack
 
 class Ansi:
     BOLD = '\033[1m'
@@ -17,42 +21,45 @@ class Ansi:
     ERROR = RED_FG+BOLD
     RESET = '\033[0m'
 
-def check_packwiz():
+def check_packwiz() -> Path:
+    """Get the current packwiz executable"""
     packwiz = env("PACKWIZ", default="packwiz")
     if p := shutil.which(packwiz):
-        return p
+        return Path(p)
     else:
         raise RuntimeError(f"!!! Couldn't find packwiz (looked for '{packwiz}'). Please put packwiz on your path or set the PACKWIZ environment variable to a packwiz executable")
 
-def check_java():
+def check_java() -> Path:
+    """Get the current java executable"""
     java = "java"
     if "JAVA_HOME" in os.environ:
-        java = Path(os.environ["JAVA_HOME"]) / "bin/java"
-        if not java.exists():
+        java_p = Path(os.environ["JAVA_HOME"]) / "bin/java"
+        if not java_p.exists():
             raise RuntimeError(f"!!! JAVA_HOME is invalid. {java} does not exist")
-        return java
+        return java_p
     else:
-        if java := shutil.which("java"):
-            return p
+        if resolved_java := shutil.which("java"):
+            return Path(resolved_java)
         else:
             raise RuntimeError(f"!!! Couldn't find java on path. Please add it or set JAVA_HOME")
 
-def get_repo_root():
+def get_repo_root() -> Path:
     # This file should be located in <repo_root>/scripts/common.py, so the root
     # is one directory up from this one
     return Path(os.path.join(os.path.dirname(__file__), '..'))
 
-def get_generated_dir():
+def get_generated_dir() -> Path:
     dir = env("OUTPUT_DIR", default=(get_repo_root() / "generated"))
+    dir = Path(dir)
     if not dir.exists():
         dir.mkdir(exist_ok=True, parents=True)
     return dir
 
-def read_file(path):
+def read_file(path: os.PathLike) -> str:
     with open(path, "r") as f:
         return f.read()
 
-def fix_packwiz_pack(pack_toml):
+def fix_packwiz_pack(pack_toml: Path):
     data = tomllib.loads(read_file(pack_toml))
     index = pack_toml.parent / data["index"]["file"]
     if not index.exists():
@@ -62,26 +69,29 @@ class JSONWithCommentsDecoder(json.JSONDecoder):
     def __init__(self, **kw):
         super().__init__(**kw)
 
-    def decode(self, s: str):
+    def decode(self, s, _w):
         s = '\n'.join(l if not l.lstrip().startswith('//') else '' for l in s.split('\n'))
-        return super().decode(s)
+        return super().decode(s, _w)
 
-def jsonc_at_home(input):
+def jsonc_at_home(input: str | bytes) -> Any:
     return json.loads(input, cls=JSONWithCommentsDecoder)
 
-def hash(values: list[str]):
+def hash(values: list[str]) -> str:
     hasher = hashlib.sha256()
     for value in values:
         hasher.update(value.encode("UTF-8"))
     return hasher.hexdigest()
 
-def env(env: str, **kwargs):
+def env[T](env: str, *, default: T) -> T | str:
     if env in os.environ:
         return os.environ[env]
     else:
-        return kwargs.get("default")
+        return default
 
-def get_colour(parsed_constants, key):
+class Constants(TypedDict):
+    default: dict[str, str]
+
+def get_colour(parsed_constants: Constants, key: str) -> str:
     """Given a parsed constants.jsonc, retrieves a colour by key. Returns a value in the form of #FFFFFF"""
     if not key.startswith("_"):
         raise RuntimeError("Scripts should only depend on colour keys starting with an underscore")
@@ -98,7 +108,7 @@ def get_colour(parsed_constants, key):
     return get_inner(key)
 
 class Ratelimiter:
-    def __init__(self, time):
+    def __init__(self, time: float):
         # Time is given in seconds, convert to nanoseconds
         self.wait_time = time
         self.last_action = 0
@@ -107,7 +117,7 @@ class Ratelimiter:
         time.sleep(max(0, self.wait_time - (time.time() - self.last_action)))
         self.last_action = time.time()
 
-def parse_packwiz(pack_toml_file):
+def parse_packwiz(pack_toml_file: Any) -> PackwizPackInfo:
     pack_toml = tomllib.loads(read_file(pack_toml_file))
     
     version_data = pack_toml["versions"]
@@ -140,9 +150,9 @@ def parse_packwiz(pack_toml_file):
 
 @dataclass
 class PackwizPackInfo:
-    name: str
-    author: str
-    pack_version: str
+    name: str | None
+    author: str | None
+    pack_version: str | None
     minecraft_version: str
     loader: str
     loader_version: str
