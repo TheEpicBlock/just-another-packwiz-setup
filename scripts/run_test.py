@@ -307,7 +307,7 @@ def run_server(exec_dir, java, loader, java_args, mc_args, **kwargs) -> subproce
             env["JDK_JAVA_OPTIONS"] = " ".join(java_args)
         
         # Set env to use the right java
-        path = os.env["PATH"] if "PATH" in os.env else ""
+        path = os.environ["PATH"] if "PATH" in os.environ else ""
         if os.name == "nt":
             env["PATH"] = f"{java.parent};{path}"
         else:
