@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-import sys
-import re
-from zipfile import ZipFile
-import zipfile
 import io
 import json
+import re
+import sys
 import urllib.request
+import zipfile
 from typing import Any
+from zipfile import ZipFile
 
-from common import Ansi
 import common
+from common import Ansi
+
 
 def main():
     repo_root = common.get_repo_root()

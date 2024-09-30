@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-import shutil
 import json
-import common
 import os
-import subprocess
 import re
+import shutil
+import subprocess
+from typing import Any, TypeAlias, TypedDict
+
+import common
 import tomli_w
-from typing import TypedDict
-from typing import Any
-from typing import TypeAlias
+
 
 def main():
     repo_root = common.get_repo_root()

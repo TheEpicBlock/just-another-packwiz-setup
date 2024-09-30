@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-import urllib.request
 import json
-import subprocess
-import tomllib
-import tempfile
 import os
-from pathlib import Path
 import shutil
+import subprocess
 import sys
+import tempfile
+import tomllib
+import urllib.request
+from pathlib import Path
 
 import common
-from common import Ansi
 from assemble_packwiz import SubmissionLockfileFormat
+from common import Ansi
+
 
 def main():
     modrinth_api = "https://api.modrinth.com/v2"

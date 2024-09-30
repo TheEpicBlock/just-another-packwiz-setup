@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-import os
-import urllib.request
-import subprocess
-from pathlib import Path
-import sys
-import shutil
 import json
-import tempfile
+import os
 import shlex
-from typing import Any
-from typing import Optional
-from typing import NewType
+import shutil
+import subprocess
+import sys
+import tempfile
+import urllib.request
+from pathlib import Path
+from typing import Any, NewType, Optional
 
+import assemble_packwiz
 import common
 from common import Ansi
-import assemble_packwiz
 
 FABRIC_INSTALLER_VERSION = "1.0.1"
 PACKWIZ_BOOTSTRAP_VERSION = "v0.0.3" # https://github.com/packwiz/packwiz-installer-bootstrap
