@@ -8,6 +8,7 @@ import re
 import tomli_w
 from typing import TypedDict
 from typing import Any
+from typing import TypeAlias
 
 def main():
     repo_root = common.get_repo_root()
@@ -26,7 +27,7 @@ def main():
 
     exclusions = list(filter(lambda l : len(l) > 0, [re.sub("#.*", "", l.strip()) for l in common.read_file(exclude_file).split("\n")]))
 
-    locked_data = json.loads(common.read_file(submission_lock_file))
+    locked_data: SubmissionLockfileFormat = json.loads(common.read_file(submission_lock_file))
     for platformid, moddata in locked_data.items():
         if not "files" in moddata:
             raise RuntimeError(f"lock data for {platformid} is invalid. Does not contain file key")
@@ -54,8 +55,7 @@ if __name__ == "__main__":
     main()
 
 # For type hints
-type SubmissionLockfileFormat = dict[str, SubmissionLockfileEntry]
-
 class SubmissionLockfileEntry(TypedDict):
     url: str 
     files: dict[str, Any]
+SubmissionLockfileFormat: TypeAlias = dict[str, SubmissionLockfileEntry]

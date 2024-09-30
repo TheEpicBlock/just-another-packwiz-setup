@@ -10,8 +10,9 @@ import re
 from typing import TypedDict
 from typing import Callable
 from typing import Any
-from typing_extensions import Unpack
+from typing import Unpack
 from typing import overload
+from typing import TypeVar
 
 class Ansi:
     BOLD = '\033[1m'
@@ -84,12 +85,13 @@ def hash(values: list[str]) -> str:
     return hasher.hexdigest()
 
 # overloads for proper type checking
+T = TypeVar('T')
 @overload
 def env(env: str, *, default: None = None) -> None | str: ...
 @overload
-def env[T](env: str, *, default: T) -> T | str: ...
+def env(env: str, *, default: T) -> T | str: ...
 
-def env[T](env: str, *, default: Any = None) -> Any | str:
+def env(env: str, *, default: Any = None) -> Any | str:
     if env in os.environ:
         return os.environ[env]
     else:
@@ -124,6 +126,19 @@ class Ratelimiter:
         time.sleep(max(0, self.wait_time - (time.time() - self.last_action)))
         self.last_action = time.time()
 
+@dataclass
+class PackwizPackInfo:
+    name: str | None
+    author: str | None
+    pack_version: str | None
+    minecraft_version: str
+    loader: str
+    loader_version: str
+
+    def safe_name(self) -> str:
+        assert self.name is not None
+        return re.sub("[^a-zA-Z0-9]+", "-", self.name)
+
 def parse_packwiz(pack_toml_file: Any) -> PackwizPackInfo:
     pack_toml = tomllib.loads(read_file(pack_toml_file))
     
@@ -154,16 +169,3 @@ def parse_packwiz(pack_toml_file: Any) -> PackwizPackInfo:
         loader,
         loader_version
     )
-
-@dataclass
-class PackwizPackInfo:
-    name: str | None
-    author: str | None
-    pack_version: str | None
-    minecraft_version: str
-    loader: str
-    loader_version: str
-
-    def safe_name(self) -> str:
-        assert self.name is not None
-        return re.sub("[^a-zA-Z0-9]+", "-", self.name)
