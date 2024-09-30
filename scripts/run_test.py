@@ -8,6 +8,9 @@ import shutil
 import json
 import tempfile
 import shlex
+from typing import Any
+from typing import Optional
+from typing import NewType
 
 import common
 from common import Ansi
@@ -263,7 +266,7 @@ def setup_server(java, mc_version, loader, loader_version, directory):
     if err := validate_server(loader, directory):
         raise RuntimeError(f"Failed to install server files: {err}")
 
-def validate_server(loader, server_dir):
+def validate_server(loader, server_dir) -> str | None:
     if loader == "fabric" and not (server_dir / "fabric-server-launch.jar").exists():
         return "Fabric servers should have a fabric-server-launch.jar"
     if loader == "neoforge" and not (server_dir / "user_jvm_args.txt").exists():
@@ -278,7 +281,7 @@ def setup_packwiz_bootstrap(java, bootstrap_version, directory):
     directory.mkdir(exist_ok=True, parents=True)
     urllib.request.urlretrieve(f"https://github.com/packwiz/packwiz-installer-bootstrap/releases/download/{bootstrap_version}/packwiz-installer-bootstrap.jar", directory / "packwiz_bootstrap.jar")
 
-def validate_packwiz(packwiz_dir):
+def validate_packwiz(packwiz_dir) -> str | None:
     if not (packwiz_dir / "packwiz_bootstrap.jar").exists():
         return "packwiz_bootstrap.jar should exist"
     return None
@@ -291,12 +294,12 @@ def setup_mc_test_injector(java, injector_version, directory):
         unprefixed = unprefixed[1:]
     urllib.request.urlretrieve(f"https://github.com/TheEpicBlock/mc-test-injector/releases/download/{injector_version}/McTestInjector-{unprefixed}.jar", directory / "McTestInjector.jar")
 
-def validate_test_injector(packwiz_dir):
+def validate_test_injector(packwiz_dir) -> str | None:
     if not (packwiz_dir / "McTestInjector.jar").exists():
         return "McTestInjector.jar should exist"
     return None
 
-def run_server(exec_dir, java, loader, java_args, mc_args, **kwargs):
+def run_server(exec_dir, java, loader, java_args, mc_args, **kwargs) -> subprocess.CompletedProcess[Any]:
     if loader == "fabric":
         return subprocess.run([java] + java_args + ["-jar", exec_dir / "fabric-server-launch.jar"] + mc_args, **kwargs)
     elif loader == "neoforge":
