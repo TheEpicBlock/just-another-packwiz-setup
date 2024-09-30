@@ -217,7 +217,7 @@ def main():
 
     sys.stdout.flush() # Prevents python's output from appearing after mc's
     os.chdir(exec_dir)
-    result = run_server(exec_dir, java, loader, java_args, mc_args)
+    result = run_server(exec_dir, java, loader, java_args, mc_args, timeout=240)
 
     if result.returncode != 0:
         print(f"! Minecraft returned status code {result.returncode}")
@@ -296,15 +296,15 @@ def validate_test_injector(packwiz_dir):
         return "McTestInjector.jar should exist"
     return None
 
-def run_server(exec_dir, java, loader, java_args, mc_args):
+def run_server(exec_dir, java, loader, java_args, mc_args, **kwargs):
     if loader == "fabric":
-        return subprocess.run([java] + java_args + ["-jar", exec_dir / "fabric-server-launch.jar"] + mc_args)
+        return subprocess.run([java] + java_args + ["-jar", exec_dir / "fabric-server-launch.jar"] + mc_args, **kwargs)
     elif loader == "neoforge":
         env = {}
         if len(java_args) > 0:
             env["JDK_JAVA_OPTIONS"] = " ".join(java_args)
         bash_file = "run.bat" if os.name == "nt" else "run.sh"
-        return subprocess.run([exec_dir / bash_file] + mc_args, env=env)
+        return subprocess.run([exec_dir / bash_file] + mc_args, env=env, **kwargs)
     else:
         raise RuntimeError(f"Unknown loader {loader}, can't run server")
 
